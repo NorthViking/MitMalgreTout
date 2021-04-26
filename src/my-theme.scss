@@ -3,8 +3,9 @@
 @include mat-core();
 
 $my-theme-primary: mat-palette($mat-pink,950);
+$my-theme-accent: mat-palette($mat-pink, 1000);
 $my-theme-warn: mat-palette($mat-red);
 
-$my-theme: mat-light-theme($my-theme-primary, $my-theme-warn);
+$my-theme: mat-light-theme($my-theme-primary,$my-theme-accent, $my-theme-warn);
 
 @include angular-material-theme($my-theme);
