@@ -12,3 +12,7 @@ a{
   display: inline-block;
   padding-left: 6px;
 }
+a:hover, a:active{
+  color: #E5998e;
+}
+
