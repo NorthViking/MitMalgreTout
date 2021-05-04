@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
+import { ProfileCreateComponent } from './profile-create/profile-create.component';
 
 
 
@@ -24,7 +25,8 @@ import { LoginComponent } from './auth/login/login.component';
     HeaderComponent,
     WelcomeComponent,
     SignupComponent,
-    LoginComponent
+    LoginComponent,
+    ProfileCreateComponent
 
 
   ],
