@@ -18,6 +18,7 @@ import { ProfileCreateComponent } from './profile-create/profile-create.componen
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +40,7 @@ import { ProfileCreateComponent } from './profile-create/profile-create.componen
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
