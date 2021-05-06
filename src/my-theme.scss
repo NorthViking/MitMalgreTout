@@ -5,7 +5,7 @@
 $my-theme-primary: mat-palette($mat-pink,950);
 $my-theme-accent: mat-palette($mat-pink, 1000);
 $my-theme-warn: mat-palette($mat-red);
-$my-theme-background: mat-palette($mat-pink,950);
+$my-theme-background: mat-palette($mat-pink,25);
 
 $my-theme: mat-light-theme($my-theme-primary,$my-theme-accent, $my-theme-warn);
 
