@@ -14,6 +14,9 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
 import { ProfileCreateComponent } from './profile-create/profile-create.component';
+import { GalleriComponent } from './galleri/galleri.component';
+import { PublicGalleriComponent } from './galleri/public-galleri/public-galleri.component';
+import { PersonalGalleriComponent } from './galleri/personal-galleri/personal-galleri.component';
 
 
 
@@ -27,7 +30,10 @@ import { ProfileCreateComponent } from './profile-create/profile-create.componen
     WelcomeComponent,
     SignupComponent,
     LoginComponent,
-    ProfileCreateComponent
+    ProfileCreateComponent,
+    GalleriComponent,
+    PublicGalleriComponent,
+    PersonalGalleriComponent
 
 
   ],
