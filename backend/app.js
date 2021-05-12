@@ -1,13 +1,15 @@
+const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
 
 const mediaPostsRoutes = require('./routes/mediaPosts');
 
 const app = express();
-
+//jLO72lMHH2XWKWr0
+//PYBEEZWl05dEc89E
 mongoose
   .connect(
-    'mongodb+srv://Caspar:PYBEEZWl05dEc89E@mmtcluster.1wl49.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+    'mongodb+srv://Caspar:jLO72lMHH2XWKWr0@mmtcluster.1wl49.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
     )
     .then(()=>{
       console.log('Connected to database');
@@ -18,21 +20,21 @@ mongoose
 
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+app.use("/media", express.static(path.join("backend/media")));
 
 app.use((req ,res, next) =>{
-  res.setHeader('Access-Control-Allow-Origin','*');
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
-    'Access-Control-allow-Headers',
-    'Origin, X-Requested-With, Content-type, Accept'
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
   );
   res.setHeader(
-    'Access-Control-Allow-Methods',
-    'GET, POST, PATCH, DELETE, OPTIONS'
+    "Access-Control-Allow-Methods",
+    "GET, POST, PATCH, PUT, DELETE, OPTIONS"
   );
   next();
 });
 
-//PYBEEZWl05dEc89E
 
 app.use('/api/mediaPosts', mediaPostsRoutes);
 
