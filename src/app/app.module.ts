@@ -18,13 +18,12 @@ import { GalleriComponent } from './galleri/galleri.component';
 import { PublicGalleriComponent } from './galleri/public-galleri/public-galleri.component';
 import { PersonalGalleriComponent } from './galleri/personal-galleri/personal-galleri.component';
 import { ProfileInfoComponent } from './profile-info/profile-info.component';
-import { ImagesDirective } from 'ng-image-placeholder';
 
 
 
 
 @NgModule({
-  declarations: [ ImagesDirective,
+  declarations: [
     AppComponent,
     SidenavListComponent,
     HeaderComponent,
