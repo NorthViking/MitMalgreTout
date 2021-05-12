@@ -13,7 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
-import { ProfileCreateComponent } from './profile-create/profile-create.component';
+import { ProfileComponent } from './profile/profile.component';
 import { GalleriComponent } from './galleri/galleri.component';
 import { PublicGalleriComponent } from './galleri/public-galleri/public-galleri.component';
 import { PersonalGalleriComponent } from './galleri/personal-galleri/personal-galleri.component';
@@ -30,7 +30,7 @@ import { PersonalGalleriComponent } from './galleri/personal-galleri/personal-ga
     WelcomeComponent,
     SignupComponent,
     LoginComponent,
-    ProfileCreateComponent,
+    ProfileComponent,
     GalleriComponent,
     PublicGalleriComponent,
     PersonalGalleriComponent
