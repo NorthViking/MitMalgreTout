@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from "@angular/router"
 
 import { GalleriService } from '../galleri.service';
 import { Galleri } from '../galleri.model'
 import { mimeType } from './mime-type.validator';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -12,14 +13,17 @@ import { mimeType } from './mime-type.validator';
   templateUrl: './personal-galleri.component.html',
   styleUrls: ['./personal-galleri.component.css'],
 })
-export class PersonalGalleriComponent implements OnInit {
+export class PersonalGalleriComponent implements OnInit, OnDestroy {
 
 
-  galleri: Galleri;
+  galleris: Galleri;
+  isLoading = false;
+  galleriGrid: Galleri[] =[];
   form: FormGroup;
   imagePreview: string;
   private mode = 'create';
   private galleriId: string;
+  private galleriSub: Subscription;
 
   constructor(
     public galleriServise: GalleriService,
@@ -37,28 +41,38 @@ export class PersonalGalleriComponent implements OnInit {
         asyncValidators: [mimeType]
       })
     });
+
+
     this.route.paramMap.subscribe((paramMap: ParamMap) =>{
       if(paramMap.has("galleriId")) {
         this.mode = "edit";
         this.galleriId = paramMap.get("galleriId");
+        this.isLoading = true;
         this.galleriServise.getMedia(this.galleriId).subscribe(galleriData => {
-          this.galleri = {
+          this.isLoading = false;
+          this.galleris = {
             id: galleriData._id,
             title: galleriData.title,
-            imagePath: galleriData.imagePath,
+            mediaPath: galleriData.mediaPath,
             description: galleriData.description
           };
           this.form.setValue({
-            title:this.galleri.title,
-            image: this.galleri.imagePath,
-            description: this.galleri.description
+            title:this.galleris.title,
+            image: this.galleris.mediaPath,
+            description: this.galleris.description
           });
         });
       } else{
         this.mode = "create";
         this.galleriId = null;
       }
-    })
+    });
+    this.galleriServise.getMedias();
+    this.galleriSub = this.galleriServise.getGalleriUpdateListener()
+    .subscribe((galleriGrid: Galleri[]) => {
+      this.galleriGrid = galleriGrid;
+    });
+
   }
 
   onImagePicked(event: Event) {
@@ -76,6 +90,7 @@ export class PersonalGalleriComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
+    this.isLoading = true;
     if (this.mode === 'create') {
       this.galleriServise.addMedia(
         this.form.value.title,
@@ -91,5 +106,13 @@ export class PersonalGalleriComponent implements OnInit {
       );
     }
     this.form.reset();
+  }
+
+  onDelete(mediaId: string) {
+    this.galleriServise.deleteMedia(mediaId);
+  }
+
+  ngOnDestroy() {
+    this.galleriSub.unsubscribe();
   }
 }

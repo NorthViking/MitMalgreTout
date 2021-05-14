@@ -1,7 +1,7 @@
 export interface Galleri {
   id: string;
   title: string;
-  imagePath: string;
+  mediaPath: string;
   description: string;
 
 }
