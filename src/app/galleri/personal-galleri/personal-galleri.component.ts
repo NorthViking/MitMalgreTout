@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from "@angular/router"
 
 import { GalleriService } from '../galleri.service';
-import { Galleri } from '../galleri.model'
+import { Media } from '../media.model'
 import { mimeType } from './mime-type.validator';
 import { Subscription } from 'rxjs';
 
@@ -16,13 +16,13 @@ import { Subscription } from 'rxjs';
 export class PersonalGalleriComponent implements OnInit, OnDestroy {
 
 
-  galleris: Galleri;
+  galleris: Media;
   isLoading = false;
-  galleriGrid: Galleri[] =[];
+  medias: Media[] =[];
   form: FormGroup;
   imagePreview: string;
   private mode = 'create';
-  private galleriId: string;
+  private mediaId: string;
   private galleriSub: Subscription;
 
   constructor(
@@ -31,6 +31,8 @@ export class PersonalGalleriComponent implements OnInit, OnDestroy {
     ) {}
 
   ngOnInit() {
+
+
     this.form = new FormGroup({
       title: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(4)],
@@ -41,20 +43,18 @@ export class PersonalGalleriComponent implements OnInit, OnDestroy {
         asyncValidators: [mimeType]
       })
     });
-
-
     this.route.paramMap.subscribe((paramMap: ParamMap) =>{
-      if(paramMap.has("galleriId")) {
+      if(paramMap.has("mediaId")) {
         this.mode = "edit";
-        this.galleriId = paramMap.get("galleriId");
+        this.mediaId = paramMap.get("mediaiId");
         this.isLoading = true;
-        this.galleriServise.getMedia(this.galleriId).subscribe(galleriData => {
+        this.galleriServise.getMedia(this.mediaId).subscribe(mediaData => {
           this.isLoading = false;
           this.galleris = {
-            id: galleriData._id,
-            title: galleriData.title,
-            mediaPath: galleriData.mediaPath,
-            description: galleriData.description
+            id: mediaData._id,
+            title: mediaData.title,
+            mediaPath: mediaData.mediaPath,
+            description: mediaData.description
           };
           this.form.setValue({
             title:this.galleris.title,
@@ -64,13 +64,14 @@ export class PersonalGalleriComponent implements OnInit, OnDestroy {
         });
       } else{
         this.mode = "create";
-        this.galleriId = null;
+        this.mediaId = null;
       }
     });
     this.galleriServise.getMedias();
     this.galleriSub = this.galleriServise.getGalleriUpdateListener()
-    .subscribe((galleriGrid: Galleri[]) => {
-      this.galleriGrid = galleriGrid;
+    .subscribe((galleriGrid: Media[]) => {
+      this.isLoading=false;
+      this.medias = galleriGrid;
     });
 
   }
@@ -99,7 +100,7 @@ export class PersonalGalleriComponent implements OnInit, OnDestroy {
       );
     } else {
       this.galleriServise.updateMedia(
-        this.galleriId,
+        this.mediaId,
         this.form.value.title,
         this.form.value.image,
         this.form.value.description

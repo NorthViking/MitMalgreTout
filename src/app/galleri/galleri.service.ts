@@ -4,22 +4,24 @@ import {Subject} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Router} from '@angular/router';
 
+import {Media} from './media.model';
 
-import {Galleri} from './galleri.model';
 
 @Injectable({providedIn: 'root'})
 export class GalleriService {
-  private galleriGrid: Galleri[] = [];
-  private galleriUpdated = new Subject<Galleri[]>();
+  private medias: Media[] = [];
+  private galleriUpdated = new Subject<Media[]>();
+
+
 
   constructor(private http: HttpClient, private router: Router) {}
 
   getMedias() {
     this.http
-    .get<{ message: string; galleriGrid: any }>("http://localhost:3000/api/mediaPosts")
+    .get<{ message: string; media: any }>("http://localhost:3000/api/mediaPosts")
     .pipe(
       map(mediaData => {
-        return mediaData.galleriGrid.map(media => {
+        return mediaData.media.map( media => {
           return {
             title: media.title,
             mediaPath: media.mediaPath,
@@ -28,11 +30,13 @@ export class GalleriService {
           };
         });
       })
+
     )
     .subscribe(transformedGalleri => {
-      this.galleriGrid = transformedGalleri;
-      this.galleriUpdated.next([...this.galleriGrid]);
+      this.medias = transformedGalleri;
+      this.galleriUpdated.next([...this.medias]);
     });
+
   }
 
   getGalleriUpdateListener(){
@@ -51,25 +55,25 @@ export class GalleriService {
     postData.append("media", media, title);
     postData.append("description", description);
     this.http
-    .post<{message: string; post: Galleri}>(
+    .post<{message: string; post: Media}>(
       "http://localhost:3000/api/mediaPosts",
       postData
     )
     .subscribe(responseData => {
-      const galleri: Galleri = {
+      const galleri: Media = {
         id: responseData.post.id,
         title: title,
         mediaPath: responseData.post.mediaPath,
         description: description
         };
-      this.galleriGrid.push(galleri);
-      this.galleriUpdated.next([...this.galleriGrid]);
+      this.medias.push(galleri);
+      this.galleriUpdated.next([...this.medias]);
       this.router.navigate(["/"]);
 
     });
   }
   updateMedia(id: string, title: string, media: File | string, description: string){
-    let postData: Galleri | FormData;
+    let postData: Media | FormData;
     if(typeof media === "object") {
       postData = new FormData();
       postData.append("id", id);
@@ -88,17 +92,17 @@ export class GalleriService {
     this.http
     .put("http://localhost:3000/api/mediaPosts" + id, postData)
     .subscribe(response => {
-      const updatedGalleri = [...this.galleriGrid];
+      const updatedGalleri = [...this.medias];
       const oldGalleriIndex = updatedGalleri.findIndex(p => p.id === id);
-      const galleri: Galleri = {
+      const galleri: Media = {
         id: id,
         title: title,
         mediaPath: "",
         description: description
       };
       updatedGalleri[oldGalleriIndex] = galleri;
-      this.galleriGrid = updatedGalleri;
-      this.galleriUpdated.next([...this.galleriGrid])
+      this.medias = updatedGalleri;
+      this.galleriUpdated.next([...this.medias])
       this.router.navigate(["/"])
     });
   }
@@ -107,10 +111,12 @@ export class GalleriService {
     this.http
     .delete("http://localhost:3000/api/mediaPosts" + mediaId)
     .subscribe(() => {
-      const updatedGalleri = this.galleriGrid.filter(media => media.id !== mediaId);
-      this.galleriGrid = updatedGalleri;
-      this.galleriUpdated.next({...this.galleriGrid});
+      const updatedGalleri = this.medias.filter(media => media.id !== mediaId);
+      this.medias = updatedGalleri;
+      this.galleriUpdated.next({...this.medias});
     })
   }
+
+
 
 }

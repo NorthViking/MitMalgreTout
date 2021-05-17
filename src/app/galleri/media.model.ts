@@ -1,4 +1,4 @@
-export interface Galleri {
+export interface Media {
   id: string;
   title: string;
   mediaPath: string;
