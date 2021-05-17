@@ -19,9 +19,6 @@ import { PublicGalleriComponent } from './galleri/public-galleri/public-galleri.
 import { PersonalGalleriComponent } from './galleri/personal-galleri/personal-galleri.component';
 import { ProfileInfoComponent } from './profile-info/profile-info.component';
 
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
