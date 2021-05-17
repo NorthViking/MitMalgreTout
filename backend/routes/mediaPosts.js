@@ -1,14 +1,14 @@
 const express = require("express");
 const multer = require("multer");
 
-const Post = require("../models/image");
+const Media = require("../models/media");
 
 const router = express.Router();
 
 const MIME_TYPE_MAP = {
   "image/png": "png",
   "image/jpeg": "jpg",
-  "image/jpg": "jpg",
+  "image/jpg": "jpg"
 };
 
 const storage = multer.diskStorage({
@@ -21,7 +21,10 @@ const storage = multer.diskStorage({
     cb(error, "backend/media");
   },
   filename: (req, file, cb) => {
-    const name = file.originalname.toLowerCase().split(" ").join("-");
+    const name = file.originalname
+    .toLowerCase()
+    .split(" ")
+    .join("-");
     const ext = MIME_TYPE_MAP[file.mimetype];
     cb(null, name + "-" + Date.now() + "-" + ext);
   },
@@ -29,15 +32,15 @@ const storage = multer.diskStorage({
 
 router.post(
   "",
-  multer({ storage: storage }).single("image"),
+  multer({ storage: storage }).single("media"),
   (req, res, next) => {
     const url = req.protocol + "://" + req.get("host");
-    const post = new Post({
+    const media = new Media({
       title: req.body.title,
-      imagePath: url + "/media/" + req.file.filename,
+      mediaPath: url + "/media/" + req.file.filename,
       description: req.body.description
     });
-    post.save().then((createdPost) => {
+    media.save().then(createdPost => {
       res.status(201).json({
         message: "post added successfully",
         post: {
@@ -51,37 +54,37 @@ router.post(
 
 router.put(
   "/:id",
-  multer({ storage: storage }).single("image"),
+  multer({ storage: storage }).single("media"),
   (req, res, next) => {
-    let imagePath = req.body.imagePath;
+    let mediaPath = req.body.mediaPath;
     if (req.file) {
       const url = req.protocol + "://" + req.get("host");
-      imagePath = url + "/media/" + req.file.filename;
+      mediaPath = url + "/media/" + req.file.filename;
     }
-    const post = new Post({
+    const media = new Media({
       _id: req.body.id,
       title: req.body.title,
-      imagePath: imagePath,
+      mediaPath: mediaPath,
       description: req.body.description
     });
-    console.log(post);
-    Post.updateOne({ _id: req.params.id }, post).then((result) => {
+    console.log(media);
+    Post.updateOne({ _id: req.params.id }, media).then(result => {
       res.status(200).json({ message: "update successful" });
     });
   }
 );
 
 router.get("", (req, res, next) => {
-  Post.find().then((documents) => {
+  Media.find().then(documents => {
     res.status(200).json({
       message: "Posts Fetched successfully",
-      posts: documents,
+      media: documents
     });
   });
 });
 
 router.get("/:id", (req, res, next) => {
-  Post.findById(req.params.id).then((post) => {
+  Media.findById(req.params.id).then(post => {
     if (post) {
       res.status(200).json(post);
     } else {
