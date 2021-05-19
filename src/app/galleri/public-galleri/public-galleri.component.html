@@ -1,7 +1,25 @@
-<section class="galleriPublic" fxLayout fxLayoutAlign="center">
-  <mat-card fxFlex="70%">
-  <p>public-galleri works!</p>
-</mat-card>
+<section fxLayout fxLayoutAlign="center">
+  <mat-card fxFlex="65%" fxFlex.sm="40%">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <div class="galleriContent" multi="true" *ngIf="medias.length > 0 && !isLoading">
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">
+      <div fxFlex= 25% fxFlex.xs="100%" fxFlex.sm="50%" *ngFor="let media of medias">
+        <mat-card  class="mat-elevation-z4">
+          <mat-card-header >
+            <mat-card-title >{{media.title}}</mat-card-title>
+          </mat-card-header>
+          <div class="media-image">
+            <img [src]="media.mediaPath" [alt]="media.title">
+          </div>
+          <mat-card-content>
+            <p>{{media.description}}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <p class="info-text mat-body-1" *ngIf="medias.length <= 0 && !isLoading">Ingen medier oploaded endnu</p>
+  </mat-card>
 </section>
 
 

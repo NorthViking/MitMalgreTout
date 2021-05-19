@@ -1,7 +1,7 @@
 <section class="galleriPrivate" fxLayout fxLayoutAlign="center">
-  <mat-card fxFlex.xs="70%" fxFlex.sm="45%">
+  <mat-card fxFlex="65%" fxFlex.sm="40%">
     <mat-card-header>
-      <mat-card-title>Private Galleri</mat-card-title>
+      <mat-card-title>Personlige Galleri</mat-card-title>
     </mat-card-header>
     <form fxLayout="column" [formGroup]="form" (submit)="onSavePost()">
       <mat-form-field>
@@ -16,7 +16,7 @@
         <input type="file" #filepicker (change)="onImagePicked($event)">
       </div>
       <mat-form-field>
-        <textarea matInput rows="5" formControlName="description" placeholder="Beskrivelse"></textarea>
+        <textarea matInput rows="4" formControlName="description" placeholder="Beskrivelse"></textarea>
         <mat-error *ngIf="form.get('description').invalid">Husk at udfylde Beskrivelse</mat-error>
       </mat-form-field>
       <div>
@@ -24,26 +24,33 @@
       </div>
     </form>
   </mat-card>
+
 </section>
-<section>
-  <div class="galleriContent">
+<section fxLayout fxLayoutAlign="center">
+  <mat-card fxFlex="65%" fxFlex.sm="40%">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <div class="galleriContent" multi="true" *ngIf="medias.length > 0 && !isLoading">
     <div fxLayout="row wrap" fxLayoutGap="16px grid">
-      <div>
-        <mat-card *ngFor="let media of medias">
-          <mat-card-header>
-            <mat-card-title>{{media.title}}</mat-card-title>
+      <div fxFlex= 25% fxFlex.xs="100%" fxFlex.sm="50%" *ngFor="let media of medias">
+        <mat-card  class="mat-elevation-z4">
+          <mat-card-header >
+            <mat-card-title >{{media.title}}</mat-card-title>
           </mat-card-header>
-          <img [src]="media.mediaPath" >
+          <div class="media-image">
+            <img [src]="media.mediaPath" [alt]="media.title">
+          </div>
           <mat-card-content>
             <p>{{media.description}}</p>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-button color="warn" (click)="onDelete(medias.id)">Slet</button>
-            <button mat-button>Edit</button>
+            <button mat-button color="warn" (click)="onDelete(media.id)">Slet</button>
+            <button mat-button color="primary" [routerLink]="['edit',media.id]">Edit</button>
           </mat-card-actions>
         </mat-card>
       </div>
     </div>
   </div>
   <p class="info-text mat-body-1" *ngIf="medias.length <= 0 && !isLoading">Ingen medier oploaded endnu</p>
+  </mat-card>
 </section>
+

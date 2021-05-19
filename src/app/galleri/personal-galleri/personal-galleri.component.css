@@ -1,21 +1,35 @@
 mat-form-field,
-textarea{
+textarea {
   width: 100%;
+}
+mat-spinner{
+  margin: auto;
+  color: white;
 }
 
 .galleriPrivate{
   margin-bottom: 15px;
+  background: #E5998e;
 
 }
 
 section{
   background: #E5998e;
+  min-width: 400px;
+
 }
 
 input[type='file']{
   visibility: hidden;
 }
 
+.media-image{
+  width: 100%;
+}
+
+.media-image img{
+  width: 100%;
+}
 .image-preview {
   height: 5rem;
   margin: 1rem 0;

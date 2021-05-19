@@ -68,7 +68,7 @@ router.put(
       description: req.body.description
     });
     console.log(media);
-    Post.updateOne({ _id: req.params.id }, media).then(result => {
+    Media.updateOne({ _id: req.params.id }, media).then(result => {
       res.status(200).json({ message: "update successful" });
     });
   }
@@ -94,7 +94,7 @@ router.get("/:id", (req, res, next) => {
 });
 
 router.delete("/:id", (req, res, next) => {
-  Post.deleteOne({_id: req.params.id}).then(result =>{
+  Media.deleteOne({_id: req.params.id}).then(result =>{
     console.log(result);
     res.status(200).json({message:"Media deleted"});
   });

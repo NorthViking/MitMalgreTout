@@ -7,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GalleriComponent implements OnInit {
 
+  routes = [
+    {path: 'public', label: 'Offentligt Galleri'},
+    {path: 'private', label: 'Personligt Galleri' }
+
+  ];
+
   constructor() { }
 
   ngOnInit(): void {
