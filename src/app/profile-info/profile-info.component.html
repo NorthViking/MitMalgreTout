@@ -1,20 +1,30 @@
 <section fxLayoutAlign="center center">
-  <mat-card class="card">
-    <mat-card-header fxLayoutAlign="center center">
-      <mat-card-title>Mine info</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px"></form>
-        <mat-form-field>
-          <input type="email" matInput placeholder="Email">
-          <mat-icon matSuffix>email</mat-icon>
-        </mat-form-field>
-        <mat-form-field>
-          <input type="password" matInput placeholder="Kodeord">
-          <mat-icon matSuffix>vpn_key</mat-icon>
-        </mat-form-field>
-        <button type="submit" mat-raised-button color="primary">Log ind</button>
-    </mat-card-content>
+  <mat-card>
+    <mat-list>
+    <mat-card-title fxLayoutAlign="center center">Mine info</mat-card-title>
+    <mat-form-field>
+      <mat-error *ngIf=""></mat-error>
+    </mat-form-field>
+    <mat-list-item>
+        Navn
+      </mat-list-item>
+      <mat-list-item>
+        Email
+      </mat-list-item>
+      <mat-list-item>
+        Mobil
+      </mat-list-item>
+      <mat-list-item>
+        Interesser
+      </mat-list-item>
+      <mat-list-item>
+        Mine events
+      </mat-list-item>
+      <input matCardContent>
+      <button mat-raised-button color="primary">Tilbage</button>
+      <button mat-raised-button color="primary">Redigér</button>
+      <button mat-raised-button color="primary">Slet</button>
+    </mat-list>
   </mat-card>
 </section>
 
