@@ -75,12 +75,28 @@ router.put(
 );
 
 router.get("", (req, res, next) => {
-  Media.find().then(documents => {
+  const pageSize = +req.query.pagesize;
+  const currentPage = +req.query.page;
+  const mediaQuery = Media.find();
+  let fechedMedia;
+  if(pageSize && currentPage) {
+    mediaQuery
+    .skip(pageSize * (currentPage - 1))
+    .limit(pageSize);
+
+  }
+  mediaQuery
+  .then(documents => {
+    fechedMedia = documents;
+    return Media.count();
+  })
+  .then(count => {
     res.status(200).json({
       message: "Posts Fetched successfully",
-      media: documents
+      media: fechedMedia,
+      maxMedia: count
     });
-  });
+  })
 });
 
 router.get("/:id", (req, res, next) => {

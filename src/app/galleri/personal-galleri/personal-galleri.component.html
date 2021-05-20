@@ -51,6 +51,7 @@
     </div>
   </div>
   <p class="info-text mat-body-1" *ngIf="medias.length <= 0 && !isLoading">Ingen medier oploaded endnu</p>
-  </mat-card>
+  <mat-paginator [length]="totalMedia" [pageSize]="mediaPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangePage($event)"></mat-paginator>
+</mat-card>
 </section>
 

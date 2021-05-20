@@ -6,6 +6,7 @@ import { GalleriService } from '../galleri.service';
 import { Media } from '../media.model'
 import { mimeType } from './mime-type.validator';
 import { Subscription } from 'rxjs';
+import { PageEvent } from '@angular/material/paginator';
 
 
 @Component({
@@ -18,6 +19,10 @@ export class PersonalGalleriComponent implements OnInit, OnDestroy {
 
   media: Media;
   isLoading = false;
+  totalMedia = 10;
+  mediaPerPage = 5;
+  currentPage = 1;
+  pageSizeOptions = [5, 10, 25, 40];
   medias: Media[] =[];
   form: FormGroup;
   imagePreview: string;
@@ -68,11 +73,12 @@ export class PersonalGalleriComponent implements OnInit, OnDestroy {
       }
     });
     this.isLoading = true;
-    this.galleriServise.getMedias();
+    this.galleriServise.getMedias(this.mediaPerPage, this.currentPage);
     this.galleriSub = this.galleriServise.getGalleriUpdateListener()
-    .subscribe((medias: Media[]) => {
+    .subscribe((mediaData: {medias: Media[], mediaCount: number}) => {
       this.isLoading=false;
-      this.medias = medias;
+      this.totalMedia = mediaData.mediaCount;
+      this.medias = mediaData.medias;
     });
 
   }
@@ -110,8 +116,18 @@ export class PersonalGalleriComponent implements OnInit, OnDestroy {
     this.form.reset();
   }
 
+  onChangePage(pageData: PageEvent){
+    this.isLoading = true;
+    this.currentPage = pageData.pageIndex + 1;
+    this.mediaPerPage = pageData.pageSize;
+    this.galleriServise.getMedias(this.mediaPerPage, this.currentPage);
+
+  }
+
   onDelete(mediaId: string) {
-    this.galleriServise.deleteMedia(mediaId);
+    this.galleriServise.deleteMedia(mediaId).subscribe(() => {
+      this.galleriServise.getMedias(this.mediaPerPage, this.currentPage)
+    });
   }
 
   ngOnDestroy() {
