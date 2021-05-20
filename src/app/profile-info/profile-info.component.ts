@@ -1,15 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-profile-info',
   templateUrl: './profile-info.component.html',
   styleUrls: ['./profile-info.component.css']
 })
+
 export class ProfileInfoComponent implements OnInit {
 
-  constructor() { }
+  @Input() events: Event[] = [];
 
-  ngOnInit(): void {
+
+  ngOnInit() {
   }
 
 }
+
+
+
+  //form: FormGroup;
+  //onSaveProfile() {
+    //}
+
+
+  //onEditProfile(){
+
+
+
+  //onDelete() {
+    //}
+
+
