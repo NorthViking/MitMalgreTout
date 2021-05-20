@@ -9,7 +9,8 @@ const app = express();
 //PYBEEZWl05dEc89E
 mongoose
   .connect(
-    'mongodb+srv://Caspar:jLO72lMHH2XWKWr0@mmtcluster.1wl49.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+    'mongodb+srv://Caspar:jLO72lMHH2XWKWr0@mmtcluster.1wl49.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+    {useNewUrlParser: true, useUnifiedTopology: true}
     )
     .then(()=>{
       console.log('Connected to database');

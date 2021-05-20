@@ -16,12 +16,12 @@ import { Subscription } from 'rxjs';
 export class PersonalGalleriComponent implements OnInit, OnDestroy {
 
 
-  galleris: Media;
+  media: Media;
   isLoading = false;
   medias: Media[] =[];
   form: FormGroup;
   imagePreview: string;
-  private mode = 'create';
+  private mode = 'upload';
   private mediaId: string;
   private galleriSub: Subscription;
 
@@ -46,32 +46,33 @@ export class PersonalGalleriComponent implements OnInit, OnDestroy {
     this.route.paramMap.subscribe((paramMap: ParamMap) =>{
       if(paramMap.has("mediaId")) {
         this.mode = "edit";
-        this.mediaId = paramMap.get("mediaiId");
+        this.mediaId = paramMap.get("mediaId");
         this.isLoading = true;
         this.galleriServise.getMedia(this.mediaId).subscribe(mediaData => {
           this.isLoading = false;
-          this.galleris = {
+          this.media = {
             id: mediaData._id,
             title: mediaData.title,
             mediaPath: mediaData.mediaPath,
             description: mediaData.description
           };
           this.form.setValue({
-            title:this.galleris.title,
-            image: this.galleris.mediaPath,
-            description: this.galleris.description
+            title:this.media.title,
+            image: this.media.mediaPath,
+            description: this.media.description
           });
         });
       } else{
-        this.mode = "create";
+        this.mode = "upload";
         this.mediaId = null;
       }
     });
+    this.isLoading = true;
     this.galleriServise.getMedias();
     this.galleriSub = this.galleriServise.getGalleriUpdateListener()
-    .subscribe((galleriGrid: Media[]) => {
+    .subscribe((medias: Media[]) => {
       this.isLoading=false;
-      this.medias = galleriGrid;
+      this.medias = medias;
     });
 
   }
@@ -92,7 +93,7 @@ export class PersonalGalleriComponent implements OnInit, OnDestroy {
       return;
     }
     this.isLoading = true;
-    if (this.mode === 'create') {
+    if (this.mode === 'upload') {
       this.galleriServise.addMedia(
         this.form.value.title,
         this.form.value.image,

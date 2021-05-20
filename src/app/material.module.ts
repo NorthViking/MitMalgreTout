@@ -15,6 +15,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatGridListModule} from "@angular/material/grid-list"
 import {MatExpansionModule} from "@angular/material/expansion"
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import {MatExpansionModule} from "@angular/material/expansion"
     MatProgressSpinnerModule,
     MatDialogModule,
     MatGridListModule,
-    MatExpansionModule
+    MatExpansionModule,
+    BrowserAnimationsModule
   ],
   exports: [
     MatButtonModule,
@@ -52,7 +54,8 @@ import {MatExpansionModule} from "@angular/material/expansion"
     MatProgressSpinnerModule,
     MatDialogModule,
     MatGridListModule,
-    MatExpansionModule
+    MatExpansionModule,
+    BrowserAnimationsModule
   ]
 })
 export class MaterialModule {}

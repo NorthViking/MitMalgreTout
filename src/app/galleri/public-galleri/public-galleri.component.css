@@ -1,3 +1,19 @@
+mat-spinner{
+  margin: auto;
+}
 section{
   background: #E5998e;
+}
+
+mat-form-field,
+textarea {
+  width: 100%;
+}
+
+.media-image{
+  width: 100%;
+}
+
+.media-image img{
+  width: 100%;
 }
