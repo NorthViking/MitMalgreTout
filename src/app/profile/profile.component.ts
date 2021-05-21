@@ -6,7 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  constructor() { }
+  new
+  onGoToProfileInfo(){
+    alert('Go to profile info');
+  }
+  onGoToMyMedia(){
+    alert('Go to media');
+  }
 
   ngOnInit(): void {
   }
