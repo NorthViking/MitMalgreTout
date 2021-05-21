@@ -18,6 +18,8 @@ import { GalleriComponent } from './galleri/galleri.component';
 import { PublicGalleriComponent } from './galleri/public-galleri/public-galleri.component';
 import { PersonalGalleriComponent } from './galleri/personal-galleri/personal-galleri.component';
 import { ProfileInfoComponent } from './profile-info/profile-info.component';
+import { NewProfileImagesComponent } from './new-profile-images/new-profile-images.component';
+import { ProfileImagesComponent } from './profile-images/profile-images.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { ProfileInfoComponent } from './profile-info/profile-info.component';
     PublicGalleriComponent,
     PersonalGalleriComponent,
     ProfileInfoComponent,
+    NewProfileImagesComponent,
+    ProfileImagesComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Profile } from './profile/profile.model';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'MitMalgreTout';
+  storedProfile: Profile [] = [];
+  }
+
+  onProfileAdded(profile){
+    this.storedProfile.push(profile);
+
   }
 
 
