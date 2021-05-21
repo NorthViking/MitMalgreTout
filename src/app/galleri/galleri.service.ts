@@ -10,31 +10,33 @@ import {Media} from './media.model';
 @Injectable({providedIn: 'root'})
 export class GalleriService {
   private medias: Media[] = [];
-  private mediaUpdated = new Subject<Media[]>();
+  private mediaUpdated = new Subject<{medias: Media[], mediaCount: number}>();
 
 
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  getMedias() {
+  getMedias(mediaPerPage: number, currentPage: number) {
+    const queryParams =`?pagesize=${mediaPerPage}&page=${currentPage}`;
     this.http
-    .get<{ message: string; media: any }>("http://localhost:3000/api/mediaPosts")
+    .get<{ message: string; media: any, maxMedia: number }>("http://localhost:3000/api/mediaPosts" + queryParams)
     .pipe(
       map(mediaData => {
-        return mediaData.media.map( media => {
+        return { media: mediaData.media.map( media => {
           return {
             title: media.title,
             mediaPath: media.mediaPath,
             id: media._id,
             description: media.description
           };
-        });
+        }), maxMedia: mediaData.maxMedia};
       })
 
     )
-    .subscribe(transformedGalleri => {
-      this.medias = transformedGalleri;
-      this.mediaUpdated.next([...this.medias]);
+    .subscribe(transformedGalleriData => {
+      this.medias = transformedGalleriData.media;
+      this.mediaUpdated.next({medias: [...this.medias],
+        mediaCount:transformedGalleriData.maxMedia});
     });
 
   }
@@ -60,14 +62,7 @@ export class GalleriService {
       postData
     )
     .subscribe(responseData => {
-      const galleri: Media = {
-        id: responseData.post.id,
-        title: title,
-        mediaPath: responseData.post.mediaPath,
-        description: description
-        };
-      this.medias.push(galleri);
-      this.mediaUpdated.next([...this.medias]);
+
       this.router.navigate(["/galleri/private"]);
 
     });
@@ -92,29 +87,16 @@ export class GalleriService {
     this.http
     .put("http://localhost:3000/api/mediaPosts/" + id, postData)
     .subscribe(response => {
-      const updatedMedia = [...this.medias];
-      const oldMediaIndex = updatedMedia.findIndex(p => p.id === id);
-      const media: Media = {
-        id: id,
-        title: title,
-        mediaPath: "",
-        description: description
-      };
-      updatedMedia[oldMediaIndex] = media;
-      this.medias = updatedMedia;
-      this.mediaUpdated.next([...this.medias]);
+
       this.router.navigate(["/galleri/private"]);
     });
   }
 
   deleteMedia(mediaId: String ) {
-    this.http
-    .delete("http://localhost:3000/api/mediaPosts/" + mediaId)
-    .subscribe(() => {
-      const updatedGalleri = this.medias.filter(media => media.id !== mediaId);
-      this.medias = updatedGalleri;
-      this.mediaUpdated.next({...this.medias});
-    });
+    return this.http
+    .delete("http://localhost:3000/api/mediaPosts/" + mediaId);;
+
+
   }
 
 

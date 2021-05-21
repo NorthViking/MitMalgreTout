@@ -16,7 +16,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import {MatGridListModule} from "@angular/material/grid-list"
 import {MatExpansionModule} from "@angular/material/expansion"
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
-
+import {MatPaginatorModule} from '@angular/material/paginator'
 
 @NgModule({
   imports: [
@@ -36,7 +36,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
     MatDialogModule,
     MatGridListModule,
     MatExpansionModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatPaginatorModule
   ],
   exports: [
     MatButtonModule,
@@ -55,7 +56,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
     MatDialogModule,
     MatGridListModule,
     MatExpansionModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatPaginatorModule
   ]
 })
 export class MaterialModule {}
