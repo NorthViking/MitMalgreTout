@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
+import * as EventEmitter from 'node:events';
+import { from } from 'rxjs';
+import { Profile } from '../profile.model';
 
 @Component({
   selector: 'app-profile-create',
@@ -6,8 +9,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  constructor() { }
+  enteredProfileImage="";
+  enteredFirstName ="";
+  enteredLastName ="";
+  enteredDateOfBirth = "";
+  enteredEmail ="";
+  enteredPhoneNumber ="";
+  enteredInterests ="";
+  enteredMyEvents ="";
+  @Output() profileCreated = new EventEmitter<Profile>();
 
+  onAddProfile(){
+    const profile: Profile = {
+      profileImage: this.enteredProfileImage,
+      firstName: this.enteredFirstName,
+      lastName: this.enteredLastName,
+      dateOfBirth: this.enteredDateOfBirth,
+      email: this.enteredEmail,
+      phoneNumber: this.enteredPhoneNumber,
+      interests: this.enteredInterests,
+      myEvents: this.enteredMyEvents
+    };
+    this.profileCreated.emit(profile);
+  }
   ngOnInit(): void {
   }
 

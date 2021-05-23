@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth/auth.service';
+import { Profile } from './profile/profile.model';
 
 @Component({
   selector: 'app-root',
@@ -13,4 +14,13 @@ export class AppComponent implements OnInit {
   ngOnInit(){
     this.authService.autoAuthUser();
   }
+
+  storedProfile: Profile [] = [];
+
+
+  onProfileAdded(profile){
+    this.storedProfile.push(profile);
+
+  }
 }
+

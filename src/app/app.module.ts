@@ -19,6 +19,8 @@ import { PublicGalleriComponent } from './galleri/public-galleri/public-galleri.
 import { PersonalGalleriComponent } from './galleri/personal-galleri/personal-galleri.component';
 import { ProfileInfoComponent } from './profile-info/profile-info.component';
 import { AuthIntercepter } from './auth/auth-interceptor';
+import { NewProfileImagesComponent } from './new-profile-images/new-profile-images.component';
+import { ProfileImagesComponent } from './profile-images/profile-images.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { AuthIntercepter } from './auth/auth-interceptor';
     PublicGalleriComponent,
     PersonalGalleriComponent,
     ProfileInfoComponent,
+    NewProfileImagesComponent,
+    ProfileImagesComponent,
   ],
   imports: [
     BrowserModule,
