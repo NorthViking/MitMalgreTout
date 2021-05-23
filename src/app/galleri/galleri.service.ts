@@ -27,7 +27,8 @@ export class GalleriService {
             title: media.title,
             mediaPath: media.mediaPath,
             id: media._id,
-            description: media.description
+            description: media.description,
+            creator: media.creator
           };
         }), maxMedia: mediaData.maxMedia};
       })
@@ -35,20 +36,28 @@ export class GalleriService {
     )
     .subscribe(transformedGalleriData => {
       this.medias = transformedGalleriData.media;
-      this.mediaUpdated.next({medias: [...this.medias],
+      this.mediaUpdated.next({
+        medias: [...this.medias],
         mediaCount:transformedGalleriData.maxMedia});
     });
 
   }
+
+
 
   getGalleriUpdateListener(){
     return this.mediaUpdated.asObservable();
   }
 
   getMedia(id: string){
-    return this.http.get<{_id: string, title: string, mediaPath: string, description: string}>(
-      "http://localhost:3000/api/mediaPosts/" + id
-    );
+    return this.http.get<{
+      _id: string;
+      title: string,
+      mediaPath: string;
+      description: string;
+      creator: string;
+    }>("http://localhost:3000/api/mediaPosts/" + id);
+
   }
 
   addMedia(title: string, media: File, description: string ){
@@ -63,7 +72,7 @@ export class GalleriService {
     )
     .subscribe(responseData => {
 
-      this.router.navigate(["/galleri/private"]);
+      window.location.reload();
 
     });
   }
@@ -81,7 +90,8 @@ export class GalleriService {
         id: id,
         title: title,
         mediaPath : media,
-        description: description
+        description: description,
+        creator: null
       };
     }
     this.http

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from './material.module';
@@ -18,6 +18,7 @@ import { GalleriComponent } from './galleri/galleri.component';
 import { PublicGalleriComponent } from './galleri/public-galleri/public-galleri.component';
 import { PersonalGalleriComponent } from './galleri/personal-galleri/personal-galleri.component';
 import { ProfileInfoComponent } from './profile-info/profile-info.component';
+import { AuthIntercepter } from './auth/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,7 @@ import { ProfileInfoComponent } from './profile-info/profile-info.component';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthIntercepter, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

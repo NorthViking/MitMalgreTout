@@ -3,5 +3,6 @@ export interface Media {
   title: string;
   mediaPath: string;
   description: string;
+  creator: string;
 
 }

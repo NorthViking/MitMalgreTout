@@ -7,6 +7,7 @@ import { Media } from '../media.model'
 import { mimeType } from './mime-type.validator';
 import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
+import { AuthService } from 'src/app/auth/auth.service';
 
 
 @Component({
@@ -23,16 +24,20 @@ export class PersonalGalleriComponent implements OnInit, OnDestroy {
   mediaPerPage = 5;
   currentPage = 1;
   pageSizeOptions = [5, 10, 25, 40];
+  userIsAuthenticated = false;
+  userId: string;
   medias: Media[] =[];
   form: FormGroup;
   imagePreview: string;
   private mode = 'upload';
   private mediaId: string;
   private galleriSub: Subscription;
+  private authStatusSub: Subscription;
 
   constructor(
     public galleriServise: GalleriService,
-    public route : ActivatedRoute
+    public route : ActivatedRoute,
+    private authService: AuthService
     ) {}
 
   ngOnInit() {
@@ -59,7 +64,8 @@ export class PersonalGalleriComponent implements OnInit, OnDestroy {
             id: mediaData._id,
             title: mediaData.title,
             mediaPath: mediaData.mediaPath,
-            description: mediaData.description
+            description: mediaData.description,
+            creator: mediaData.creator
           };
           this.form.setValue({
             title:this.media.title,
@@ -74,11 +80,20 @@ export class PersonalGalleriComponent implements OnInit, OnDestroy {
     });
     this.isLoading = true;
     this.galleriServise.getMedias(this.mediaPerPage, this.currentPage);
-    this.galleriSub = this.galleriServise.getGalleriUpdateListener()
+    this.userId = this.authService.getUserId();
+    this.galleriSub = this.galleriServise
+    .getGalleriUpdateListener()
     .subscribe((mediaData: {medias: Media[], mediaCount: number}) => {
       this.isLoading=false;
       this.totalMedia = mediaData.mediaCount;
       this.medias = mediaData.medias;
+    });
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService
+    .getAuthStatusListener()
+    .subscribe(isAuthenticated => {
+      this.userIsAuthenticated = isAuthenticated;
+      this.userId = this.authService.getUserId();
     });
 
   }
@@ -132,5 +147,6 @@ export class PersonalGalleriComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.galleriSub.unsubscribe();
+    this.authStatusSub.unsubscribe();
   }
 }

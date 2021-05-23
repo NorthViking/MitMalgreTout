@@ -9,6 +9,7 @@ import { GalleriComponent } from './galleri/galleri.component';
 import { ProfileInfoComponent } from './profile-info/profile-info.component';
 import { PublicGalleriComponent } from './galleri/public-galleri/public-galleri.component';
 import  {PersonalGalleriComponent } from './galleri/personal-galleri/personal-galleri.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   {path:'', component: WelcomeComponent},
@@ -18,13 +19,14 @@ const routes: Routes = [
   {path: 'profile-info', component: ProfileInfoComponent},
   {path: 'galleri', component: GalleriComponent, children:[
     {path: 'public', component: PublicGalleriComponent},
-    {path: 'private', component: PersonalGalleriComponent},
-    {path: 'private/edit/:mediaId', component: PersonalGalleriComponent}]},
+    {path: 'private', component: PersonalGalleriComponent, canActivate: [AuthGuard]},
+    {path: 'private/edit/:mediaId', component: PersonalGalleriComponent, canActivate:[AuthGuard]}]},
 
 ];
 
 @NgModule({
   imports:[RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule{}

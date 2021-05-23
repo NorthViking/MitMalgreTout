@@ -2,13 +2,14 @@ const express = require("express");
 const multer = require("multer");
 
 const Media = require("../models/media");
+const checkAuth = require("../middleware/check-auth");
 
 const router = express.Router();
 
 const MIME_TYPE_MAP = {
   "image/png": "png",
   "image/jpeg": "jpg",
-  "image/jpg": "jpg"
+  "image/jpg": "jpg",
 };
 
 const storage = multer.diskStorage({
@@ -21,10 +22,7 @@ const storage = multer.diskStorage({
     cb(error, "backend/media");
   },
   filename: (req, file, cb) => {
-    const name = file.originalname
-    .toLowerCase()
-    .split(" ")
-    .join("-");
+    const name = file.originalname.toLowerCase().split(" ").join("-");
     const ext = MIME_TYPE_MAP[file.mimetype];
     cb(null, name + "-" + Date.now() + "-" + ext);
   },
@@ -32,21 +30,23 @@ const storage = multer.diskStorage({
 
 router.post(
   "",
+  checkAuth,
   multer({ storage: storage }).single("media"),
   (req, res, next) => {
     const url = req.protocol + "://" + req.get("host");
     const media = new Media({
       title: req.body.title,
       mediaPath: url + "/media/" + req.file.filename,
-      description: req.body.description
+      description: req.body.description,
+      creator: req.userData.userId,
     });
-    media.save().then(createdPost => {
+    media.save().then((createdPost) => {
       res.status(201).json({
         message: "post added successfully",
         post: {
           ...createdPost,
-          id: createdPost._id
-        }
+          id: createdPost._id,
+        },
       });
     });
   }
@@ -54,6 +54,7 @@ router.post(
 
 router.put(
   "/:id",
+  checkAuth,
   multer({ storage: storage }).single("media"),
   (req, res, next) => {
     let mediaPath = req.body.mediaPath;
@@ -65,11 +66,19 @@ router.put(
       _id: req.body.id,
       title: req.body.title,
       mediaPath: mediaPath,
-      description: req.body.description
+      description: req.body.description,
+      creator: req.userData.userId
     });
     console.log(media);
-    Media.updateOne({ _id: req.params.id }, media).then(result => {
-      res.status(200).json({ message: "update successful" });
+    Media.updateOne(
+      { _id: req.params.id, creator: req.userData.userId },
+      media
+    ).then(result => {
+      if (result.nModified > 0) {
+        res.status(200).json({ message: "update successful" });
+      } else {
+        res.status(401).json({ message: "not authorized" });
+      }
     });
   }
 );
@@ -79,24 +88,21 @@ router.get("", (req, res, next) => {
   const currentPage = +req.query.page;
   const mediaQuery = Media.find();
   let fechedMedia;
-  if(pageSize && currentPage) {
-    mediaQuery
-    .skip(pageSize * (currentPage - 1))
-    .limit(pageSize);
-
+  if (pageSize && currentPage) {
+    mediaQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
   }
   mediaQuery
-  .then(documents => {
-    fechedMedia = documents;
-    return Media.count();
-  })
-  .then(count => {
-    res.status(200).json({
-      message: "Posts Fetched successfully",
-      media: fechedMedia,
-      maxMedia: count
+    .then(documents => {
+      fechedMedia = documents;
+      return Media.count();
+    })
+    .then(count => {
+      res.status(200).json({
+        message: "Posts Fetched successfully",
+        media: fechedMedia,
+        maxMedia: count,
+      });
     });
-  })
 });
 
 router.get("/:id", (req, res, next) => {
@@ -109,11 +115,16 @@ router.get("/:id", (req, res, next) => {
   });
 });
 
-router.delete("/:id", (req, res, next) => {
-  Media.deleteOne({_id: req.params.id}).then(result =>{
-    console.log(result);
-    res.status(200).json({message:"Media deleted"});
-  });
+router.delete("/:id", checkAuth, (req, res, next) => {
+  Media.deleteOne({ _id: req.params.id, creator: req.userData.userId }).then(
+    result => {
+      if (result.n > 0) {
+        res.status(200).json({ message: "Media deleted" });
+      } else {
+        res.status(401).json({ message: "Not authorized" });
+      }
+    }
+  );
 });
 
 module.exports = router;

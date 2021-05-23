@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { AuthService } from '../auth.service';
+
+
 
 @Component({
   selector: 'app-login',
@@ -7,9 +11,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  isLoading = false;
+
+  constructor(public authServise: AuthService) { }
+
+
+  onLogin(form: NgForm){
+    if (form.invalid) {
+      return
+    }
+    this.isLoading = true;
+    this.authServise.login(
+      form.value.email,
+      form.value.password);
+  }
+
 
   ngOnInit(): void {
+
   }
 
 }
