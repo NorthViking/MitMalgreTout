@@ -17,10 +17,11 @@ import { ProfileComponent } from './profile/profile.component';
 import { GalleriComponent } from './galleri/galleri.component';
 import { PublicGalleriComponent } from './galleri/public-galleri/public-galleri.component';
 import { PersonalGalleriComponent } from './galleri/personal-galleri/personal-galleri.component';
-import { ProfileInfoComponent } from './profile-info/profile-info.component';
+
 import { AuthIntercepter } from './auth/auth-interceptor';
-import { NewProfileImagesComponent } from './new-profile-images/new-profile-images.component';
-import { ProfileImagesComponent } from './profile-images/profile-images.component';
+import { ErrorInterceptor } from './error-interceptor';
+import { ErrorComponent } from './error/error.component';
+
 
 @NgModule({
   declarations: [
@@ -34,9 +35,8 @@ import { ProfileImagesComponent } from './profile-images/profile-images.componen
     GalleriComponent,
     PublicGalleriComponent,
     PersonalGalleriComponent,
-    ProfileInfoComponent,
-    NewProfileImagesComponent,
-    ProfileImagesComponent,
+    ErrorComponent
+
   ],
   imports: [
     BrowserModule,
@@ -49,7 +49,10 @@ import { ProfileImagesComponent } from './profile-images/profile-images.componen
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthIntercepter, multi: true}],
-  bootstrap: [AppComponent]
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthIntercepter, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
+  bootstrap: [AppComponent],
+  entryComponents: [ErrorComponent]
 })
 export class AppModule { }

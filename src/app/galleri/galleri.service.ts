@@ -43,8 +43,6 @@ export class GalleriService {
 
   }
 
-
-
   getGalleriUpdateListener(){
     return this.mediaUpdated.asObservable();
   }
