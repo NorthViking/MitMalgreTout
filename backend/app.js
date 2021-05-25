@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
+mongoose.set('useCreateIndex', true);
 
 const mediaPostsRoutes = require('./routes/mediaPosts');
 const userRoutes = require('./routes/user');
