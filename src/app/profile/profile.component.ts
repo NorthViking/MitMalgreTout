@@ -1,7 +1,6 @@
-import { Component, OnInit, Output } from '@angular/core';
-import * as EventEmitter from 'node:events';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { from } from 'rxjs';
-import { Profile } from '../profile.model';
+import { Profile } from './profile.model';
 
 @Component({
   selector: 'app-profile-create',

@@ -17,11 +17,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { GalleriComponent } from './galleri/galleri.component';
 import { PublicGalleriComponent } from './galleri/public-galleri/public-galleri.component';
 import { PersonalGalleriComponent } from './galleri/personal-galleri/personal-galleri.component';
-import { ProfileInfoComponent } from './profile-info/profile-info.component';
 import { AuthIntercepter } from './auth/auth-interceptor';
-import { NewProfileImagesComponent } from './new-profile-images/new-profile-images.component';
-import { ProfileImagesComponent } from './profile-images/profile-images.component';
-
+import {  } from '@angular/material/card'
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,10 +31,7 @@ import { ProfileImagesComponent } from './profile-images/profile-images.componen
     GalleriComponent,
     PublicGalleriComponent,
     PersonalGalleriComponent,
-    ProfileInfoComponent,
-    NewProfileImagesComponent,
-    ProfileImagesComponent,
-  ],
+    ],
   imports: [
     BrowserModule,
     MaterialModule,

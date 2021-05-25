@@ -1,10 +1,10 @@
 export interface Profile{
-  profile: [];
+  profileImage: string;
   firstName: string;
   lastName: string;
-  dateOfBirth: number;
-  email: [];
-  phoneNumber: number;
-  interests: [];
-  myEvents: [];
+  dateOfBirth: string;
+  email: string;
+  phoneNumber: string;
+  interests: string;
+  myEvents: string;
 }
