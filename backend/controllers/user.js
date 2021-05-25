@@ -29,13 +29,13 @@ exports.createUser = (req, res, next) => {
   });
 }
 
-exports.userLogin = (req, res, next) => {
+exports.userLogin =  (req, res, next) => {
   let fetchedUser;
   User.findOne({email: req.body.email})
   .then(user => {
     if (!user) {
-      return res.status(401).json({
-        message: "Auth fejlede"
+       return res.status(401).json({
+        message: "Auth fejlede!"
       });
     }
     fetchedUser = user;
@@ -44,7 +44,7 @@ exports.userLogin = (req, res, next) => {
   .then(result => {
     if (!result) {
       return res.status(401).json({
-        message: "Auth fejlede"
+        message: "Auth fejlede!"
       });
     }
     const token = jwt.sign(
