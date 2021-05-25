@@ -17,8 +17,12 @@ import { ProfileComponent } from './profile/profile.component';
 import { GalleriComponent } from './galleri/galleri.component';
 import { PublicGalleriComponent } from './galleri/public-galleri/public-galleri.component';
 import { PersonalGalleriComponent } from './galleri/personal-galleri/personal-galleri.component';
+
 import { AuthIntercepter } from './auth/auth-interceptor';
-import {  } from '@angular/material/card'
+import { ErrorInterceptor } from './error-interceptor';
+import { ErrorComponent } from './error/error.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +35,9 @@ import {  } from '@angular/material/card'
     GalleriComponent,
     PublicGalleriComponent,
     PersonalGalleriComponent,
-    ],
+    ErrorComponent
+
+  ],
   imports: [
     BrowserModule,
     MaterialModule,
@@ -43,7 +49,10 @@ import {  } from '@angular/material/card'
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthIntercepter, multi: true}],
-  bootstrap: [AppComponent]
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthIntercepter, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
+  bootstrap: [AppComponent],
+  entryComponents: [ErrorComponent]
 })
 export class AppModule { }

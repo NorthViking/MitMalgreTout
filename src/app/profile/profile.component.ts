@@ -1,6 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { from } from 'rxjs';
-import { Profile } from './profile.model';
+
 
 @Component({
   selector: 'app-profile-create',
@@ -16,21 +16,21 @@ export class ProfileComponent implements OnInit {
   enteredPhoneNumber ="";
   enteredInterests ="";
   enteredMyEvents ="";
-  @Output() profileCreated = new EventEmitter<Profile>();
+  //@Output() profileCreated = new EventEmitter();
 
-  onAddProfile(){
-    const profile: Profile = {
-      profileImage: this.enteredProfileImage,
-      firstName: this.enteredFirstName,
-      lastName: this.enteredLastName,
-      dateOfBirth: this.enteredDateOfBirth,
-      email: this.enteredEmail,
-      phoneNumber: this.enteredPhoneNumber,
-      interests: this.enteredInterests,
-      myEvents: this.enteredMyEvents
-    };
-    this.profileCreated.emit(profile);
-  }
+  // onAddProfile(){
+  //   const profile: Profile = {
+  //     profileImage: this.enteredProfileImage,
+  //     firstName: this.enteredFirstName,
+  //     lastName: this.enteredLastName,
+  //     dateOfBirth: this.enteredDateOfBirth,
+  //     email: this.enteredEmail,
+  //     phoneNumber: this.enteredPhoneNumber,
+  //     interests: this.enteredInterests,
+  //     myEvents: this.enteredMyEvents
+  //   };
+  //   this.profileCreated.emit(profile);
+  // }
   ngOnInit(): void {
   }
 

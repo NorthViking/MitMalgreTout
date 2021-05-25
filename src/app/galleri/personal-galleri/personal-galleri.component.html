@@ -30,8 +30,8 @@
   <mat-card fxFlex="65%" fxFlex.sm="40%">
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <div class="galleriContent" multi="true" *ngIf="medias.length > 0 && !isLoading">
-    <div fxLayout="row wrap" fxLayoutGap="16px grid">
-      <div fxFlex= 25% fxFlex.xs="100%" fxFlex.sm="50%" *ngFor="let media of medias">
+    <div fxLayout="row wrap"  fxLayoutGap="16px grid">
+      <div  fxFlex= 25% fxFlex.xs="100%" fxFlex.sm="50%" *ngFor="let media of medias" >
         <mat-card  class="mat-elevation-z4" *ngIf="userIsAuthenticated && userId === media.creator">
           <mat-card-header >
             <mat-card-title >{{media.title}}</mat-card-title>

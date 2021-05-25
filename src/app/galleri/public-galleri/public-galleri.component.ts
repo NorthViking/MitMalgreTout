@@ -15,8 +15,9 @@ export class PublicGalleriComponent implements OnInit, OnDestroy{
   isLoading = false;
   medias: Media[] =[];
   totalMedia = 10;
-  mediaPerPage = 5;
   pageSizeOptions = [5, 10, 25, 40];
+  mediaPerPage = 5;
+
   currentPage = 1;
 
   constructor(public galleriServise: GalleriService) { }

@@ -13,7 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatGridListModule} from "@angular/material/grid-list"
+import { MatGridListModule} from "@angular/material/grid-list"
 import {MatExpansionModule} from "@angular/material/expansion"
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import {MatPaginatorModule} from '@angular/material/paginator'
@@ -37,7 +37,8 @@ import {MatPaginatorModule} from '@angular/material/paginator'
     MatGridListModule,
     MatExpansionModule,
     BrowserAnimationsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDialogModule
   ],
   exports: [
     MatButtonModule,
@@ -57,7 +58,8 @@ import {MatPaginatorModule} from '@angular/material/paginator'
     MatGridListModule,
     MatExpansionModule,
     BrowserAnimationsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDialogModule
   ]
 })
 export class MaterialModule {}

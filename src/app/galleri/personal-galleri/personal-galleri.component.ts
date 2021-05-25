@@ -41,7 +41,10 @@ export class PersonalGalleriComponent implements OnInit, OnDestroy {
     ) {}
 
   ngOnInit() {
-
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
+      authStatus => {
+        this.isLoading = false;
+    });
 
     this.form = new FormGroup({
       title: new FormControl(null, {
@@ -142,6 +145,8 @@ export class PersonalGalleriComponent implements OnInit, OnDestroy {
   onDelete(mediaId: string) {
     this.galleriServise.deleteMedia(mediaId).subscribe(() => {
       this.galleriServise.getMedias(this.mediaPerPage, this.currentPage)
+    }, () =>{
+      this.isLoading = false;
     });
   }
 

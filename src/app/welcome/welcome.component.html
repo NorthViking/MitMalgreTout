@@ -1,1 +1,84 @@
-<p>welcome works!</p>
+<section fxLayout fxLayoutAlign="center">
+  <mat-card fxFlex="75%" fxFlex.sm="40%">
+    <mat-card-header fxLayout fxLayoutAlign="center">
+      <h1 mat-card-title>Forside</h1>
+    </mat-card-header>
+    <mat-card-content :fullscreen="true">
+      <mat-card-header collapese="condense">
+        <mat-card-title size="large"></mat-card-title>
+      </mat-card-header>
+      <div id="container">
+        <mat-card-content>
+          <mat-card-content fxLayout fxLayoutAlign="center" class="frontImage">
+            <img fxFlex="45%" src="assets/images/Forside.jpg">
+          </mat-card-content>
+          <mat-card-content fxLayout fxLayoutAlign="center">
+            <h2>Lige nu har vi {{totalMedia}} delte billeder</h2>
+          </mat-card-content>
+        </mat-card-content>
+        <div>
+          <mat-card-content size="12">
+            <mat-card-subtitle fxLayout fxLayoutAlign="center">
+              <h2>Velkommen til MitMalgréTout</h2>
+            </mat-card-subtitle>
+            <mat-card-content>
+              <p fxLayout fxLayoutAlign="center">
+                Hos Malgré tout lever vi af at skabe indhold. Nu vil vi give
+                dig muligheden for at gøre det samme. Vi introducerer MATAI –
+                vores intelligente billede platform. Her kan du dele din
+                passion for heste sammen med andre. Del dine billeder til
+                stævner, messer eller blot dit daglige liv i stalden. Om du er
+                amatør eller professional spiller ingen rolle. Vi ønsker blot
+                at skabe et fællesskab for alle jer der har hestesporten som
+                passion eller levevej.
+              </p>
+            </mat-card-content>
+          </mat-card-content>
+        </div>
+        <div fxLayoutAlign="center" fxLayoutGap="10 grid" fxFlexAlign="25%">
+          <mat-card-content class="infoText" fxflex.xl="4" fxFlex.md="auto" fxFlex.xs="auto" fxFlex.lg="auto">
+            <img src="assets/images/HorseIcon.jpg" class="tripple">
+            <mat-card-subtitle>
+              <h3>Få dine billeder ud til 100.000 brugere</h3>
+            </mat-card-subtitle>
+            <mat-card-content>
+              <p>
+                NPå vores billede platform kan du få dine billeder ud til
+                100.000 hestefolk - helt gratis.
+              </p>
+            </mat-card-content>
+          </mat-card-content>
+          <mat-card-content class="infoText" fxflex.xl="4" fxFlex.md="auto" fxFlex.xs="auto" fxFlex.lg="auto">
+            <img src="assets/images/ImageIcon.jpg" class="tripple">
+            <mat-card-subtitle>
+              <h3>Få dit billede på forsiden</h3>
+            </mat-card-subtitle>
+            <mat-card-content >
+              <p>
+                Når du uploader et billede hos os, har du chancen for at
+                redaktionen vælger lige netop dit billede til forsiden af
+                Malgré tout. Du vil blive kontaktet af os hvis vi vælger dit
+                billede. Og det må du selvfølgelig gerne dele med dem du
+                kender!
+              </p>
+            </mat-card-content>
+          </mat-card-content>
+          <mat-card-content fxflex.xl="4" fxFlex.md="auto" fxFlex.xs="auto" fxFlex.lg="auto">
+            <img src="assets/images/FolderIcon.jpg" class="tripple">
+            <mat-card-subtitle>
+              <h3>Lav dit eget hestegalleri</h3>
+            </mat-card-subtitle>
+            <mat-card-content>
+              <p>
+                Nu er det slut med at have alle dine hestebilleder spredt
+                rundt på internettet. Nu kan du samle alle dine hestebilleder
+                et sted. Lav et smukt hestegalleri du kan dele med andre.
+              </p>
+            </mat-card-content>
+          </mat-card-content>
+        </div>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+</section>
