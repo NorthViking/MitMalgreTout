@@ -21,7 +21,8 @@ import { PersonalGalleriComponent } from './galleri/personal-galleri/personal-ga
 import { AuthIntercepter } from './auth/auth-interceptor';
 import { ErrorInterceptor } from './error-interceptor';
 import { ErrorComponent } from './error/error.component';
-
+import { ProfileInfoComponent } from './profile/profile-info/profile-info.component';
+import { ProfileMediaComponent } from './profile/profile-media/profile-media.component';
 
 @NgModule({
   declarations: [
@@ -35,8 +36,9 @@ import { ErrorComponent } from './error/error.component';
     GalleriComponent,
     PublicGalleriComponent,
     PersonalGalleriComponent,
-    ErrorComponent
-
+    ErrorComponent,
+    ProfileInfoComponent,
+    ProfileMediaComponent
   ],
   imports: [
     BrowserModule,
