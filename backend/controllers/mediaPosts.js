@@ -1,5 +1,6 @@
 const Media = require("../models/media");
 
+
 exports.createMedia = (req, res, next) => {
   const url = req.protocol + "://" + req.get("host");
   const media = new Media({
@@ -37,12 +38,12 @@ exports.updateMedia = (req, res, next) => {
     description: req.body.description,
     creator: req.userData.userId
   });
-  console.log(media);
+
   Media.updateOne(
     { _id: req.params.id, creator: req.userData.userId },
     media
   ).then(result => {
-    if (result.nModified > 0) {
+    if (result.n > 0) {
       res.status(200).json({ message: "update successful" });
     } else {
       res.status(401).json({ message: "not authorized" });
@@ -66,7 +67,34 @@ exports.getMedias = (req, res, next) => {
   mediaQuery
     .then(documents => {
       fechedMedia = documents;
-      return Media.count();
+      return Media.estimatedDocumentCount();
+    })
+    .then(count => {
+      res.status(200).json({
+        message: "Posts Fetched successfully",
+        media: fechedMedia,
+        maxMedia: count,
+      });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: "hente media fejlede"
+      })
+    });
+};
+
+exports.getMedias = (req, res, next) => {
+  const pageSize = +req.query.pagesize;
+  const currentPage = +req.query.page;
+  const mediaQuery = Media.filter();
+  let fechedMedia;
+  if (pageSize && currentPage) {
+    mediaQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
+  }
+  mediaQuery
+    .then(documents => {
+      fechedMedia = documents;
+      return Media.estimatedDocumentCount();
     })
     .then(count => {
       res.status(200).json({

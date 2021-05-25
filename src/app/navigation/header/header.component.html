@@ -9,6 +9,9 @@
   </div>
 <div fxFlex fsLayout fxLayoutAlign="flex-end" fxHide.xs>
   <ul fxLayout fxLayoutGap="5px" class="navigation-items">
+    <li >
+      <a mat-button routerLink="">Velkommen</a>
+    </li>
     <li *ngIf="!userIsAuthenticated">
       <a mat-button routerLink="/signup" >Opret Bruger</a>
     </li>
@@ -16,10 +19,10 @@
       <a mat-button routerLink="/login">Log ind<mat-icon>login</mat-icon></a>
     </li>
     <li >
-      <a mat-button routerLink="/galleri/public">Galleri</a>
+      <a mat-button routerLink="/galleri/public">Galleri<mat-icon>collections</mat-icon></a>
     </li>
     <li *ngIf="userIsAuthenticated">
-      <button mat-button (click)="onLogout()">Log ud</button>
+      <a mat-button (click)="onLogout()">Log ud<mat-icon>logout</mat-icon></a>
     </li>
   </ul>
 </div>

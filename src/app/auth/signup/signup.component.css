@@ -4,3 +4,11 @@ mat-form-field{
 .card{
   margin-top: 150px;
 }
+
+a{
+  color: #E5998e;
+}
+
+button {
+  margin-top: 10px;
+}
