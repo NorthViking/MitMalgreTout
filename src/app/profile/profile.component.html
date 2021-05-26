@@ -1,0 +1,70 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form (submit)="onAddInfo()" *ngIf="!isLoading"></form>
+  <form (submit)="onEditInfo()" *ngIf="!isEditing"></form>
+  <form (submit)="onSaveInfo()" *ngIf="!isSaving"></form>
+  <form (submit)="onDeleteInfo()" *ngIf="!isDeleting"></form>
+  <form (submit)="onDeleteProfile()" *ngIf="!isDeletingProfile"> </form>
+  <mat-form-field>
+
+    <input matInput
+    type="text"
+    name="info"
+    placeholder="Info">
+    <mat-error *ngIf="info.invalid">Indtast venligst dine informationer</mat-error>
+
+    <input matInput
+    type=""
+    name="picture"
+    placeholder="picture">
+
+    <input matInput
+    type="text"
+    name="firstName"
+    placeholder="firstName">
+    <mat-error *ngIf="firstName.invalid">Indtast venligst dit fornavn</mat-error>
+
+    <input matInput
+    type="text"
+    name="lastName"
+    placeholder="lastName">
+    <mat-error *ngIf="lastName.invalid">Indtast venligst dit efternavn</mat-error>
+
+    <input matInput
+    type="text"
+    name="dateOfBirth"
+    placeholder="dateOfBirth">
+
+    <input matInput
+    type="text"
+    name="email"
+    placeholder="email">
+    <mat-error *ngIf="email.invalid">Indtast venligst din email</mat-error>
+
+    <input matInput
+    type="text"
+    name="phoneNumber"
+    placeholder="phoneNumber">
+
+    <input matInput
+    type="text"
+    name="interests"
+    placeholder="interests">
+
+    <input matInput
+    type="text"
+    name="myEvents"
+    placeholder="myEvents">
+
+    <input matInput
+    type="text"
+    name="myMedia"
+    placeholder="myMedia">
+
+  </mat-form-field>
+  <div>
+    <button mat-stroked-button type="button" (click)="filePicker.click()">Vælg billede</button>
+    <input type="file" #filePicker>
+
+  </div>
+</mat-card>

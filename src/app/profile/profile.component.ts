@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-profile-create',
@@ -6,7 +8,30 @@ import { Component } from '@angular/core';
   styleUrls: ['./profile.component.css']
 })
 
+export class ProfileComponent implements OnInit{
+  enteredTitle = "";
+  enteredProfileInfo = "";
+  enteredProfilePicture = "";
+  enteredFirsName = "";
+  enteredLastName = "";
+  enteredDateOfBirth = "";
+  enteredEmail = "";
+  enteredPhoneNumber = "";
+  enteredInterests = "";
+  enteredMyEvents = "";
+  enteredMyMedia = "";
 
-export class ProfileComponent{
+  constructor(public profileService: ProfilesService, public route: ActivatedRoute) {
 
+    ngOnInit(){
+      this.route.
+    }
+
+    onAddInfo(form: NgForm) {
+      if (form.invalid) {
+        return;
+      }
+      this.profileService.addInfo(form.value.title, form.value.profileInfo)
+    }
+  }
 }

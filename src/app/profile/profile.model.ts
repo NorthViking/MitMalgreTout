@@ -1,5 +1,6 @@
 export interface Profile{
-  profileImage: string;
+  profileInfo: string;
+  profilePicture: string;
   firstName: string;
   lastName: string;
   dateOfBirth: string;
