@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Info } from '../profile.model';
+import { ProfileService } from '../profile.service';
 
 @Component({
   selector: 'app-profile-media',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileMediaComponent implements OnInit {
 
-  constructor() { }
+  @Input() profileInfos: Info [] = [];
+
+  constructor(public profileService: ProfileService){}
 
   ngOnInit(): void {
+    throw new Error('Method not implemented.');
   }
-
 }

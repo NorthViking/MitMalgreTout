@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ProfileService } from './profile.service';
 
 @Component({
   selector: 'app-profile-create',
@@ -9,10 +10,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class ProfileComponent implements OnInit{
-  enteredTitle = "";
   enteredProfileInfo = "";
   enteredProfilePicture = "";
-  enteredFirsName = "";
+  enteredFirstName = "";
   enteredLastName = "";
   enteredDateOfBirth = "";
   enteredEmail = "";
@@ -21,17 +21,15 @@ export class ProfileComponent implements OnInit{
   enteredMyEvents = "";
   enteredMyMedia = "";
 
-  constructor(public profileService: ProfilesService, public route: ActivatedRoute) {
+  constructor(public profileService: ProfileService){}
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
 
-    ngOnInit(){
-      this.route.
+  onAddProfileInfo(form: NgForm) {
+    if(form.valid){
+      return;
     }
-
-    onAddInfo(form: NgForm) {
-      if (form.invalid) {
-        return;
-      }
-      this.profileService.addInfo(form.value.title, form.value.profileInfo)
+    this.profileService.addProfileInfo(form.value.profileInfo, form.value.profilePicture, form.value.firstName, form.value.lastName, form.value.dateofBirth, form.value.email, form.value.phoneNumber, form.value.interests, form.value.myEvents, form.value.myMedia);
     }
   }
-}

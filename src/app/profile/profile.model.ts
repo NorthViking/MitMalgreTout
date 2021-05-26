@@ -1,11 +1,12 @@
-export interface Profile{
+export interface Info{
   profileInfo: string;
   profilePicture: string;
   firstName: string;
   lastName: string;
-  dateOfBirth: Date;
+  dateofBirth: string;
   email: string;
-  phoneNumber: string;
+  phonenumber: string;
   interests: string;
   myEvents: string;
+  myMedia: string;
 }

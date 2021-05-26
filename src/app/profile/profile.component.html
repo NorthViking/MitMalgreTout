@@ -1,17 +1,11 @@
 <mat-card>
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <form (submit)="onAddInfo()" *ngIf="!isLoading"></form>
-  <form (submit)="onEditInfo()" *ngIf="!isEditing"></form>
-  <form (submit)="onSaveInfo()" *ngIf="!isSaving"></form>
-  <form (submit)="onDeleteInfo()" *ngIf="!isDeleting"></form>
-  <form (submit)="onDeleteProfile()" *ngIf="!isDeletingProfile"> </form>
-  <mat-form-field>
-
+  <form (submit)="onAddProfileInfo(profileInfoForm)" #profileInfoForm= "ngForm">
     <input matInput
     type="text"
-    name="info"
-    placeholder="Info">
-    <mat-error *ngIf="info.invalid">Indtast venligst dine informationer</mat-error>
+    name="profileInfo"
+    ngModel
+    #profileInfo="ngModel">
+    <mat-error *ngIf="profileInfo.invalid">Indtast venligst dine informationer</mat-error>
 
     <input matInput
     type=""
@@ -21,12 +15,16 @@
     <input matInput
     type="text"
     name="firstName"
+    ngModel
+    #firstName
     placeholder="firstName">
     <mat-error *ngIf="firstName.invalid">Indtast venligst dit fornavn</mat-error>
 
     <input matInput
     type="text"
     name="lastName"
+    ngModel
+    #lastName
     placeholder="lastName">
     <mat-error *ngIf="lastName.invalid">Indtast venligst dit efternavn</mat-error>
 
@@ -38,6 +36,8 @@
     <input matInput
     type="text"
     name="email"
+    ngModel
+    #email
     placeholder="email">
     <mat-error *ngIf="email.invalid">Indtast venligst din email</mat-error>
 
@@ -60,6 +60,7 @@
     type="text"
     name="myMedia"
     placeholder="myMedia">
+    <mat-form-field>
 
   </mat-form-field>
   <div>
@@ -67,4 +68,5 @@
     <input type="file" #filePicker>
 
   </div>
+  </form>
 </mat-card>

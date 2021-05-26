@@ -1,13 +1,4 @@
 <mat-card>
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <form (submit)="onAddInfo()" *ngIf="!isLoading"></form>
-  <mat-form-field>
-    <input matInput
-    type="text"
-    name="info"
-    placeholder="Info Title">
-    <mat-error *ngIf="info.invalid">Indtast venligst dine informationer</mat-error>
-  </mat-form-field>
   <div>
     <button mat-stroked-button type="button" (click)="filePicker.click()">Vælg billede</button>
     <input type="file" #filePicker>

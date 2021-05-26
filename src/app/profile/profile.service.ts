@@ -1,14 +1,40 @@
-import { ProfileInfo } from './profile.model';
+import { Injectable } from '@angular/core';
+import { Info } from './profile.model';
+import { Subject } from 'rxjs';
 
+@Injectable({providedIn: 'root'})
 export class ProfileService{
-private profileInfos: ProfileInfo[] = [];
+private profileInfos: Info[] = [];
+private profileInfosUpdated = new Subject<Info[]>();
 
-getProfileInfos(){
+getProfileInfo(){
   return [...this.profileInfos];
   }
+getProfileInfoUpdateListener(){
+return this.profileInfosUpdated.asObservable();
+}
 
-  addProfileInfo(profileInfos: string, profilePicture: string, firstName: string, lastName: string, dateOfBirth: string, email: string, phoneNumber: string, interests: string, myEvents: string, myMedia: string){
-    const profileInfo: ProfileInfo = {profileInfos: profileInfos, profilePicture: profilePicture, firstName: firstName, lastName:lastName, dateOfBirth:dateOfBirth, email:email, phoneNumber: phoneNumber, interests: interests, myEvents: myEvents, myMedia: myMedia}
-    this.profileInfos.push(profileInfo);
-  }
+addProfileInfo( profileInfo: string,
+  profilePicture: string,
+  firstName: string,
+  lastName: string,
+  dateofBirth: string,
+  email: string,
+  phonenumber: string,
+  interests: string,
+  myEvents: string,
+  myMedia: string) {
+    const info: Info = {profileInfo: profileInfo,
+      profilePicture: profilePicture,
+      firstName: firstName,
+      lastName: lastName,
+      dateofBirth: dateofBirth,
+      email:email,
+      phonenumber: phonenumber,
+      interests: interests,
+      myEvents: myEvents,
+      myMedia: myMedia};
+      this.profileInfos.push(info);
+      this.profileInfosUpdated.next([...this.profileInfos]);
+}
 }
