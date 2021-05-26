@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ProfileService } from './profile.service';
 
 @Component({
@@ -10,6 +10,7 @@ import { ProfileService } from './profile.service';
 })
 
 export class ProfileComponent implements OnInit{
+  enteredProfileInfoId = "";
   enteredProfileInfo = "";
   enteredProfilePicture = "";
   enteredFirstName = "";
@@ -20,16 +21,39 @@ export class ProfileComponent implements OnInit{
   enteredInterests = "";
   enteredMyEvents = "";
   enteredMyMedia = "";
+  private mode = 'create';
+  private profileInfoId: string;
 
-  constructor(public profileService: ProfileService){}
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
+  constructor(public profileService: ProfileService, public route: ActivatedRoute){}
+
+  ngOnInit() {
+    this.route.paramMap.subscribe((paramMap: ParamMap) =>{
+      if(paramMap.has('profileInfoId')){
+        this.mode = 'edit';
+        this.profileInfoId = paramMap.get(this.profileInfoId);
+      } else{
+        this.mode = 'create';
+        this.profileInfoId = null;
+
+      }
+    });
   }
 
   onAddProfileInfo(form: NgForm) {
     if(form.valid){
       return;
     }
-    this.profileService.addProfileInfo(form.value.profileInfo, form.value.profilePicture, form.value.firstName, form.value.lastName, form.value.dateofBirth, form.value.email, form.value.phoneNumber, form.value.interests, form.value.myEvents, form.value.myMedia);
+    this.profileService.addProfileInfo(
+      form.value.profileInfoId,
+       form.value.profileInfo,
+       form.value.profilePicture,
+       form.value.firstName,
+       form.value.lastName,
+       form.value.dateofBirth,
+       form.value.email,
+       form.value.phoneNumber,
+       form.value.interests,
+       form.value.myEvents,
+       form.value.myMedia);
     }
-  }
+}

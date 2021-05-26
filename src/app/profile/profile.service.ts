@@ -1,40 +1,81 @@
 import { Injectable } from '@angular/core';
 import { Info } from './profile.model';
 import { Subject } from 'rxjs';
+import { HttpClient } from "@angular/common/http";
+import { map } from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 export class ProfileService{
 private profileInfos: Info[] = [];
 private profileInfosUpdated = new Subject<Info[]>();
+  transformedProfileInfos: Info[];
 
-getProfileInfo(){
-  return [...this.profileInfos];
-  }
-getProfileInfoUpdateListener(){
-return this.profileInfosUpdated.asObservable();
+constructor(private http: HttpClient){}
+
+getProfileInfos(){
+  this.http.get<{message: string, profileInfos: any}>
+  ("http://localhost:3000/api/profileInfos")
+  .pipe(map((profileData) => {
+    return profileData.profileInfos.map( info => {
+      return {
+        profileInfo: info.profileInfo,
+        profilePicture: info.profilePicture,
+        firstName: info.firstName,
+        lastName: info.lastName,
+        dateOfBirth: info.dateOfBirth,
+        email: info.email,
+        phoneNumber: info.phoneNumber,
+        interests: info.interests,
+        myEvents: info.myEvents,
+        myMedia: info.myMedia,
+        profileInfoId: info._profileInfoId
+      };
+    });
+  }))
+  .subscribe(transformedProfileInfos => {
+   this.profileInfos = transformedProfileInfos;
+  this.profileInfosUpdated.next([...this.profileInfos]);
+  });
 }
 
-addProfileInfo( profileInfo: string,
+getProfileInfoUpdateListener(){
+  return this.profileInfosUpdated.asObservable();
+}
+
+addProfileInfo(_profileInfoId: string, profileInfo: string,
   profilePicture: string,
   firstName: string,
   lastName: string,
-  dateofBirth: string,
+  dateOfBirth: string,
   email: string,
-  phonenumber: string,
+  phoneNumber: string,
   interests: string,
   myEvents: string,
-  myMedia: string) {
-    const info: Info = {profileInfo: profileInfo,
+  myMedia: string){
+    const Info: Info =
+    { profileInfoId: null,
+      profileInfo: profileInfo,
       profilePicture: profilePicture,
       firstName: firstName,
       lastName: lastName,
-      dateofBirth: dateofBirth,
-      email:email,
-      phonenumber: phonenumber,
-      interests: interests,
-      myEvents: myEvents,
-      myMedia: myMedia};
-      this.profileInfos.push(info);
-      this.profileInfosUpdated.next([...this.profileInfos]);
-}
+      dateofBirth:dateOfBirth,
+      email: email, phoneNumber:
+      phoneNumber, interests:
+      interests, myEvents:
+      myEvents, myMedia:
+      myMedia};
+      this.http.post<{message: string}>('http://localhost:3000/api/profileInfos', profileInfo)
+      .subscribe((responseData) => {
+        console.log(responseData.message);
+        this.profileInfos.push(Info);
+        this.profileInfosUpdated.next([...this.profileInfos]);
+      });
+  }
+
+  deleteProfileInforId(_profileInfoId: string){
+    this.http.delete("http://localhost/api/profileInfos" + _profileInfoId)
+    .subscribe(() => {
+      console.log('Deleted!');
+    })
+  }
 }

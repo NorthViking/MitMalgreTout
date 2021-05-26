@@ -1,3 +1,26 @@
+<mat-accordion multi="true" *ngIf="profileInfos.length> 0">
+  <mat-expansion-panel *ngFor="let profileinfo of profileInfos">
+<mat-expansion-panel-header>
+  {{ info.profileInfoId }}
+</mat-expansion-panel-header>
+<p>{{ info.profileInfo }}</p>
+<p>{{ info.profilePicture }}</p>
+<p>{{ info.firstName }}</p>
+<p>{{ info.lastName }}</p>
+<p>{{ info.dateOfBirth }}</p>
+<p>{{ info.email }}</p>
+<p>{{ info.phoneNumber }}</p>
+<p>{{ info.interests }}</p>
+<p>{{ info.myEvents }}</p>
+<p>{{ info.myMedia }}</p>
+<mat-action-row>
+  <button mat-button color="primary">Redigér</button>
+  <button mat-button color="warn" (click)="onDelete(profileId.id)">Slet</button>
+  <button mat-button color="primary">Tilbage</button>
+</mat-action-row>
+</mat-expansion-panel>
+</mat-accordion>
+<p class="info-text-mat-body-1" *ngIf="profileInfos.length <=0">Ingen info indtastet</p>
 <mat-card>
   <div>
     <button mat-stroked-button type="button" (click)="filePicker.click()">Vælg billede</button>

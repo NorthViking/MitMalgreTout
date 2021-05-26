@@ -15,12 +15,18 @@ private profileInfosSub: Subscription;
 
   constructor(public profileService: ProfileService){}
 
-  ngOnInit(): void {
-    this.profileInfos = this.profileService.getProfileInfo();
+  ngOnInit() {
+
+    this.profileService.getProfileInfos();
     this.profileInfosSub = this.profileService.getProfileInfoUpdateListener()
     .subscribe((profileInfos: Info[]) => {
       this.profileInfos = profileInfos;
     });
+  }
+
+  onDelete(profileInfoId: string) {
+    this.profileService.deleteProfileInforId(profileInfoId);
+
   }
 
  ngOnDestroy(){
