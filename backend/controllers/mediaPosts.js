@@ -83,59 +83,7 @@ exports.getMedias = (req, res, next) => {
     });
 };
 
-exports.getMedias = (req, res, next) => {
-  const pageSize = +req.query.pagesize;
-  const currentPage = +req.query.page;
-  const mediaQuery = Media.filter();
-  let fechedMedia;
-  if (pageSize && currentPage) {
-    mediaQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
-  }
-  mediaQuery
-    .then(documents => {
-      fechedMedia = documents;
-      return Media.estimatedDocumentCount();
-    })
-    .then(count => {
-      res.status(200).json({
-        message: "Posts Fetched successfully",
-        media: fechedMedia,
-        maxMedia: count,
-      });
-    })
-    .catch(error => {
-      res.status(500).json({
-        message: "hente media fejlede"
-      })
-    });
-};
 
-exports.getUserMedia = (req, res, next) => {
-  const pageSize = +req.query.pagesize;
-  const currentPage = +req.query.page;
-  const mediaQuery = Media.find();
-  let fechedMedia;
-  if (pageSize && currentPage) {
-    mediaQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
-  }
-  mediaQuery
-    .then(documents => {
-      fechedMedia = documents;
-      return Media.count();
-    })
-    .then(count => {
-      res.status(200).json({
-        message: "Posts Fetched successfully",
-        media: fechedMedia,
-        maxMedia: count,
-      });
-    })
-    .catch(error => {
-      res.status(500).json({
-        message: "hente media fejlede"
-      })
-    });
-};
 
 exports.getMedia = (req, res, next) => {
   Media.findById(req.params.id).then(post => {

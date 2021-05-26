@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { ProfileService } from '../profile.model';
+import {ProfileService} from '../profile.service';
+import { ProfileModel } from '../profile.model';
 import { ProfileInfo } from "../profile.model";
 
 @Component({
