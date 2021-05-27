@@ -64,3 +64,7 @@ exports.userLogin =  (req, res, next) => {
     });
   });
 }
+
+exports.deleteUser = (req, res, next) => {
+
+}
