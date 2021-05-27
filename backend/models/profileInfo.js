@@ -5,9 +5,7 @@ const mongoose = require('mongoose');
 const ProfileInfo = mongoose.Schema({
   profileInfo: {type: String, required: true},
   profilePicture: {type: File, required: false},
-  firstName: {type: String, required: true},
-  lastName: {type: String, required: true},
-  dateOfBirth: {type: Date, required: true},
+  dateOfBirth: {type: Date, required: false},
   interests: {type: String, required: false},
   myEvents: {type: String, required: false},
   myMedia: {type: File, required: false},

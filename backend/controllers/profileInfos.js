@@ -7,10 +7,7 @@ const ProfileInfo = require("../models/profileInfo");
 exports.createProfileInfo = (req, res, next) => {
   bcrypt.hash(req.body.password, 10).then(hash => {
     const user = new ProfileInfo({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
       dateOfBirth: req.body.dateOfBirth,
-      email: req.body.email,
       phoneNumber: req.body.phoneNumber,
       interests: req.body.interests,
       myEvents: req.body.myEvents,
