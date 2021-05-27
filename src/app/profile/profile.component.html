@@ -1,4 +1,11 @@
-<mat-card>
+<section fxLayout="center center">
+<mat-card class="card">
+  <mat-card-header fxLayoutAlign="center center">
+    <mat-card-title>Min profil</mat-card-title>
+  </mat-card-header>
+    <mat-card-content>
+
+    </mat-card-content>
   <form (submit)="onAddProfileInfo(profileInfoForm)" #profileInfoForm= "ngForm">
     <input matInput
     type="text"
@@ -10,14 +17,17 @@
     <input matInput
     type=""
     name="picture"
-    placeholder="picture">
+    placeholder="Vælg profilebillede">
+    <div>
+      <button mat-raised-button type="button" color="primary" (click)="filePicker.click()">Vælg billede</button>
+    </div>
 
     <input matInput
-    type="text"
     name="firstName"
     ngModel
     #firstName
-    placeholder="firstName">
+    placeholder="Fornavn">
+    <input type="text">
     <mat-error *ngIf="firstName.invalid">Indtast venligst dit fornavn</mat-error>
 
     <input matInput
@@ -25,48 +35,56 @@
     name="lastName"
     ngModel
     #lastName
-    placeholder="lastName">
+    placeholder="Efternavn">
+    <input type="text">
     <mat-error *ngIf="lastName.invalid">Indtast venligst dit efternavn</mat-error>
 
     <input matInput
     type="text"
     name="dateOfBirth"
-    placeholder="dateOfBirth">
+    placeholder="Fødselsdag">
+    <input type="date" #datePicker>
 
     <input matInput
     type="text"
     name="email"
     ngModel
     #email
-    placeholder="email">
+    placeholder="Email">
+    <input type="email">
     <mat-error *ngIf="email.invalid">Indtast venligst din email</mat-error>
 
     <input matInput
     type="text"
     name="phoneNumber"
-    placeholder="phoneNumber">
+    placeholder="Telefonnummer">
+    <input type="number">
 
     <input matInput
     type="text"
     name="interests"
-    placeholder="interests">
+    placeholder="Interesser">
+    <input type="text">
 
     <input matInput
     type="text"
     name="myEvents"
-    placeholder="myEvents">
+    placeholder="Mine events">
+    <button mat-raised-button type="menu" color="primary" (click)="filePicker.click()">Vælg event</button>
 
     <input matInput
     type="text"
     name="myMedia"
-    placeholder="myMedia">
+    placeholder="Mine medier">
+    <button mat-raised-button type="button" color="primary" (click)="filePicker.click()">Vælg medier</button>
     <mat-form-field>
 
   </mat-form-field>
-  <div>
-    <button mat-stroked-button type="button" (click)="filePicker.click()">Vælg billede</button>
     <input type="file" #filePicker>
-
-  </div>
   </form>
+  <button mat-raised-button color="primary">Tilbage</button>
+  <button mat-raised-button color="#000000">Slet profil</button>
+  <button mat-raised-button color="primary">Redigér profil</button>
+
 </mat-card>
+</section>
