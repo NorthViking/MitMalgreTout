@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Info } from './profile.model';
 import { ProfileService } from './profile.service';
 
 @Component({
@@ -21,9 +22,9 @@ export class ProfileComponent implements OnInit{
   enteredInterests = "";
   enteredMyEvents = "";
   enteredMyMedia = "";
-  private mode = 'create';
+  mode = 'create';
   private profileInfoId: string;
-
+  profileInfo : Info;
 
   constructor(public profileService: ProfileService, public route: ActivatedRoute){}
 
@@ -32,10 +33,10 @@ export class ProfileComponent implements OnInit{
       if(paramMap.has('profileInfoId')){
         this.mode = 'edit';
         this.profileInfoId = paramMap.get(this.profileInfoId);
+        this.profileInfo = this.profileService.getProfileInfo(this.profileInfoId);
       } else{
         this.mode = 'create';
         this.profileInfoId = null;
-
       }
     });
   }
