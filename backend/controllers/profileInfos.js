@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const profileInfo = require("../models/profileInfo");
+
 
 const ProfileInfo = require("../models/profileInfo");
 
@@ -12,7 +12,6 @@ exports.createProfileInfo = (req, res, next) => {
       dateOfBirth: req.body.dateOfBirth,
       email: req.body.email,
       phoneNumber: req.body.phoneNumber,
-      password: hash,
       interests: req.body.interests,
       myEvents: req.body.myEvents,
       myMedia: req.body.myMedia

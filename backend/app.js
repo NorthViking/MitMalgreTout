@@ -5,6 +5,7 @@ mongoose.set('useCreateIndex', true);
 
 const mediaPostsRoutes = require('./routes/mediaPosts');
 const userRoutes = require('./routes/user');
+const profileInfosRoutes = require('./routes/profileInfo')
 
 const app = express();
 
