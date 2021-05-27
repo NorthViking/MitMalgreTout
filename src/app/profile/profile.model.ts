@@ -1,4 +1,5 @@
 export interface Info{
+  [x: string]: string;
   profileInfoId: string;
   profileInfo: string;
   profilePicture: string;

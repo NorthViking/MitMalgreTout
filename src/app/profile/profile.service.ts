@@ -42,6 +42,10 @@ getProfileInfoUpdateListener(){
   return this.profileInfosUpdated.asObservable();
 }
 
+getProfileInfo(id:string){
+  return {...this.profileInfos.find(p => p.id === id)};
+}
+
 addProfileInfo(_profileInfoId: string, profileInfo: string,
   profilePicture: string,
   firstName: string,
@@ -53,7 +57,7 @@ addProfileInfo(_profileInfoId: string, profileInfo: string,
   myEvents: string,
   myMedia: string){
     const Info: Info =
-    { profileInfoId: null,
+    { profileInfoId: _profileInfoId,
       profileInfo: profileInfo,
       profilePicture: profilePicture,
       firstName: firstName,

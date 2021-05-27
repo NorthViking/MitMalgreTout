@@ -1,90 +1,90 @@
-<section fxLayout="center center">
-<mat-card class="card">
-  <mat-card-header fxLayoutAlign="center center">
-    <mat-card-title>Min profil</mat-card-title>
+<section fxLayoutAlign="center center">
+  <mat-card fxFlex="60%" fxFlex.xl="10%">
+    <mat-card-header fxLayoutAlign="left left">
+      <mat-card-title>Min profil</mat-card-title>
+    <mat-card-subtitle> Personlige informationer</mat-card-subtitle>
   </mat-card-header>
-    <mat-card-content>
+    <mat-card-content fxLayout="column" fxLayoutAlign="left left" fxLayoutGap="20px">
+      <form (submit)="onAddProfileInfo(profileInfoForm)"
+       #profileInfoForm= "ngForm"
+       fxLayout="column"
+       fxLayoutAlign= "center center"
+       fxLayoutGap="15px">
+       <div>
 
+       </div>
+        <div fxLayout="column" fxLayoutAlign="left left" fxLayoutGap="15px">
+          <input type="file" #filePicker>
+          <button mat-raised-button type="button" color="primary" (click)="filePicker.click()">Vælg profilbillede</button>
+        </div>
+
+        <mat-form-field>
+          <input matInput
+          name="firstName"
+          ngModel
+          #firstName
+          placeholder="Fornavn">
+          <mat-icon matSuffix>person</mat-icon>
+          <mat-error *ngIf="firstName.invalid">Indtast venligst dit fornavn</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput
+          type="text"
+          name="lastName"
+          ngModel
+          #lastName
+          placeholder="Efternavn">
+          <mat-icon matSuffix>person</mat-icon>
+        <mat-error *ngIf="lastName.invalid">Indtast venligst dit efternavn</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput
+          type="date"
+          name="dateOfBirth"
+          #datePicker
+          placeholder="Fødselsdag">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput
+          type="text"
+          name="email"
+          ngModel
+          #email
+          placeholder="Email">
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-error *ngIf="email.invalid">Indtast venligst din email</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput
+          type="text"
+          name="phoneNumber"
+          placeholder="Telefonnummer">
+          <mat-icon matSuffix>phone</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input type="text"
+          matInput
+          name="interests"
+          ngModel
+          #interestsInput="ngModel"
+          placeholder="Interesser">
+          <mat-icon matSuffix>note_add</mat-icon>
+        </mat-form-field>
+
+      </form>
+      <input #eventPicker>
+      <mat-icon matSuffix>event</mat-icon>
+      <button mat-raised-button color="primary" (click)="eventPicker.click()">Vælg event</button>
+      <input #mediaPicker>
+      <button mat-raised-button color="#000000" (click)="mediaPicker">Vælg medie</button>
+      <button mat-raised-button color="primary">Redigér profil</button>
+      <button mat-raised-button color="#000000">Slet profil</button>
+      <button mat-raised-button color="primary">Tilbage</button>
     </mat-card-content>
-  <form (submit)="onAddProfileInfo(profileInfoForm)" #profileInfoForm= "ngForm">
-    <input matInput
-    type="text"
-    name="profileInfo"
-    ngModel
-    #profileInfo="ngModel">
-    <mat-error *ngIf="profileInfo.invalid">Indtast venligst dine informationer</mat-error>
-
-    <input matInput
-    type=""
-    name="picture"
-    placeholder="Vælg profilebillede">
-    <div>
-      <button mat-raised-button type="button" color="primary" (click)="filePicker.click()">Vælg billede</button>
-    </div>
-
-    <input matInput
-    name="firstName"
-    ngModel
-    #firstName
-    placeholder="Fornavn">
-    <input type="text">
-    <mat-error *ngIf="firstName.invalid">Indtast venligst dit fornavn</mat-error>
-
-    <input matInput
-    type="text"
-    name="lastName"
-    ngModel
-    #lastName
-    placeholder="Efternavn">
-    <input type="text">
-    <mat-error *ngIf="lastName.invalid">Indtast venligst dit efternavn</mat-error>
-
-    <input matInput
-    type="text"
-    name="dateOfBirth"
-    placeholder="Fødselsdag">
-    <input type="date" #datePicker>
-
-    <input matInput
-    type="text"
-    name="email"
-    ngModel
-    #email
-    placeholder="Email">
-    <input type="email">
-    <mat-error *ngIf="email.invalid">Indtast venligst din email</mat-error>
-
-    <input matInput
-    type="text"
-    name="phoneNumber"
-    placeholder="Telefonnummer">
-    <input type="number">
-
-    <input matInput
-    type="text"
-    name="interests"
-    placeholder="Interesser">
-    <input type="text">
-
-    <input matInput
-    type="text"
-    name="myEvents"
-    placeholder="Mine events">
-    <button mat-raised-button type="menu" color="primary" (click)="filePicker.click()">Vælg event</button>
-
-    <input matInput
-    type="text"
-    name="myMedia"
-    placeholder="Mine medier">
-    <button mat-raised-button type="button" color="primary" (click)="filePicker.click()">Vælg medier</button>
-    <mat-form-field>
-
-  </mat-form-field>
-    <input type="file" #filePicker>
-  </form>
-  <button mat-raised-button color="primary">Tilbage</button>
-  <button mat-raised-button color="#000000">Slet profil</button>
-  <button mat-raised-button color="primary">Redigér profil</button>
-
 </mat-card>
 </section>
