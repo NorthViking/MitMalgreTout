@@ -5,7 +5,7 @@ mongoose.set('useCreateIndex', true);
 
 const mediaPostsRoutes = require('./routes/mediaPosts');
 const userRoutes = require('./routes/user');
-const profileInfosRoutes = require('./routes/profileInfo')
+
 
 const app = express();
 
@@ -44,6 +44,5 @@ app.use((req ,res, next) =>{
 
 app.use('/api/mediaPosts', mediaPostsRoutes);
 app.use('/api/user', userRoutes);
-app.use('/api/profile', profileInfosRoutes);
 
 module.exports = app;
