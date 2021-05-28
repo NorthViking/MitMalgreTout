@@ -11,6 +11,7 @@ import { ProfileService } from './profile.service';
 })
 
 export class ProfileComponent implements OnInit{
+  isLoading = false
   enteredProfileInfoId = "";
   enteredProfileInfo = "";
   enteredProfilePicture = "";

@@ -23,6 +23,7 @@ import { ErrorInterceptor } from './error-interceptor';
 import { ErrorComponent } from './error/error.component';
 import { ProfileInfoComponent } from './profile/profile-info/profile-info.component';
 import { ProfileMediaComponent } from './profile/profile-media/profile-media.component';
+import { LinksComponent } from './links/links.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ProfileMediaComponent } from './profile/profile-media/profile-media.com
     PersonalGalleriComponent,
     ErrorComponent,
     ProfileInfoComponent,
-    ProfileMediaComponent
+    ProfileMediaComponent,
+    LinksComponent
   ],
   imports: [
     BrowserModule,
