@@ -1,18 +1,32 @@
 <section fxLayoutAlign="center center">
   <mat-card fxFlex="60%" fxFlex.xl="10%">
-    <mat-card-header fxLayoutAlign="left left">
-      <mat-card-title>Min profil</mat-card-title>
-    <mat-card-subtitle> Personlige informationer</mat-card-subtitle>
-  </mat-card-header>
+    <mat-card>
+      <mat-toolbar fxLayoutAlign="center center" fxLayoutGap="50px">
+        <mat-card-title fxLayoutAlign="center center">Mit Malgré Tout</mat-card-title>
+        <div fxFlex fsLayout fxLayoutAlign="flex-end" fxHide.xs>
+          <button mat-icon-button color="primary" aria-lable="heart" type="button"
+          (click)="filePicker.click()">
+          <mat-icon>favorite</mat-icon>
+        </button>
+        <button mat-icon-button class="share" color="primary" aria-label="share">
+          <mat-icon>share</mat-icon>
+        </button>
+        <button mat-icon-button class="contact_mail" color="primary" aria-label="contact_mail">
+          <mat-icon>contact_mail</mat-icon></button>
+        </div>
+      </mat-toolbar>
+      <mat-card-subtitle>Min profil</mat-card-subtitle>
+    </mat-card>
+
     <mat-card-content fxLayout="column" fxLayoutAlign="left left" fxLayoutGap="20px">
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
+      <form *ngIf="!isLoading"></form>
       <form (submit)="onAddProfileInfo(profileInfoForm)"
        #profileInfoForm= "ngForm"
        fxLayout="column"
        fxLayoutAlign= "center center"
        fxLayoutGap="15px">
-       <div>
 
-       </div>
         <div fxLayout="column" fxLayoutAlign="left left" fxLayoutGap="15px">
           <input type="file" #filePicker>
           <button mat-raised-button type="button" color="primary" (click)="filePicker.click()">Vælg profilbillede</button>
@@ -24,7 +38,7 @@
           ngModel
           #firstName
           placeholder="Fornavn">
-          <mat-icon matSuffix>person</mat-icon>
+          <mat-icon matSuffix color="primary">person</mat-icon>
           <mat-error *ngIf="firstName.invalid">Indtast venligst dit fornavn</mat-error>
         </mat-form-field>
 
@@ -35,12 +49,12 @@
           ngModel
           #lastName
           placeholder="Efternavn">
-          <mat-icon matSuffix>person</mat-icon>
+          <mat-icon matSuffix color="primary">person</mat-icon>
         <mat-error *ngIf="lastName.invalid">Indtast venligst dit efternavn</mat-error>
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput
+          <input matInput color="primary"
           type="date"
           name="dateOfBirth"
           #datePicker
@@ -54,7 +68,7 @@
           ngModel
           #email
           placeholder="Email">
-          <mat-icon matSuffix>email</mat-icon>
+          <mat-icon matSuffix color="primary">email</mat-icon>
           <mat-error *ngIf="email.invalid">Indtast venligst din email</mat-error>
         </mat-form-field>
 
@@ -63,7 +77,7 @@
           type="text"
           name="phoneNumber"
           placeholder="Telefonnummer">
-          <mat-icon matSuffix>phone</mat-icon>
+          <mat-icon matSuffix color="primary">phone</mat-icon>
         </mat-form-field>
 
         <mat-form-field>
@@ -73,18 +87,25 @@
           ngModel
           #interestsInput="ngModel"
           placeholder="Interesser">
-          <mat-icon matSuffix>note_add</mat-icon>
+          <mat-icon matSuffix color="primary">note_add</mat-icon>
         </mat-form-field>
 
       </form>
-      <input #eventPicker>
-      <mat-icon matSuffix>event</mat-icon>
-      <button mat-raised-button color="primary" (click)="eventPicker.click()">Vælg event</button>
-      <input #mediaPicker>
-      <button mat-raised-button color="#000000" (click)="mediaPicker">Vælg medie</button>
-      <button mat-raised-button color="primary">Redigér profil</button>
-      <button mat-raised-button color="#000000">Slet profil</button>
-      <button mat-raised-button color="primary">Tilbage</button>
+      <div>
+        <button mat-icon-button mat-raised-button color="primary" aria-label="arrow_back"><mat-icon>arrow_back</mat-icon></button>
+        &nbsp;&nbsp;&nbsp;<button mat-icon-button mat-raised-button color="primary" aria-label="event"><mat-icon>event</mat-icon></button>
+        &nbsp;&nbsp;&nbsp;<button mat-icon-button mat-raised-button color="primary" aria-label="view_module"><mat-icon>view_module</mat-icon></button>
+        &nbsp;&nbsp;&nbsp;<button mat-icon-button mat-raised-button color="primary" aria-label="edit"><mat-icon>edit</mat-icon></button>
+        &nbsp;&nbsp;&nbsp;<button mat-icon-button mat-raised-button color="primary" aria-label="delete"><mat-icon>delete</mat-icon></button>
+      </div>
+
+    </mat-card-content>
+    <mat-card-content>
+      <p>Malgré Touts hjemmeside<a href="https://www.malgretout.dk/"> Klik her</a></p>
+    </mat-card-content>
+    <mat-card-content>
+      <p>Send mail til Malgré Tout<a href="mailto: th@malgretout.dk = Feedback&body = Message"> Send email</a></p>
+      <p>Kom med idéer til Malgré Tout<a href="mailto: tn@malgretout.dk, fwd@malgretout.dk, bs@malgretout.dk, lh@malgretout.dk = Feedback&body = Message"> Send os en mail</a></p>
     </mat-card-content>
 </mat-card>
 </section>

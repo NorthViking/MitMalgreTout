@@ -10,7 +10,7 @@
         <mat-form-field>
           <input type="email" matInput ngModel name="email" placeholder="Email" #emailInput="ngModel" required email>
           <mat-icon matSuffix>email</mat-icon>
-          <mat-error *ngIf="emailInput.invalid">Indtast et gyldigt Email</mat-error>
+          <mat-error *ngIf="emailInput.invalid">Indtast en gyldigt email</mat-error>
         </mat-form-field>
         <mat-form-field>
           <input type="password" matInput name="password" ngModel placeholder="Kodeord" #passwordInput="ngModel"
@@ -25,7 +25,7 @@
           <p>Har du glemt dit kodeord? <a href="">Klik her</a></p>
         </mat-card-content>
         <mat-card-content>
-          <p>mangler du et Konto? <a routerLink="/signup">Klik her</a></p>
+          <p>Mangler du en konto? <a routerLink="/signup">Klik her</a></p>
         </mat-card-content>
       </mat-card-content>
     </mat-card-content>
