@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -10,7 +11,7 @@ import { AuthService } from '../auth.service';
 })
 export class SignupComponent implements OnInit, OnDestroy {
 
-
+  form: FormGroup;
   isLoading = false;
   private authStatusSub: Subscription
 
@@ -22,6 +23,19 @@ export class SignupComponent implements OnInit, OnDestroy {
         this.isLoading = false;
       }
     );
+
+    this.form = new FormGroup({
+      firstName: new FormControl(null, {
+        validators: [Validators.required],
+      }),
+      lastName: new FormControl(null, {
+        validators: [Validators.required] }),
+      email: new FormControl(null, {
+        validators: [Validators.required]
+      }),
+      password: new FormControl(null , {
+        validators: [Validators.required, Validators.minLength(8)]})
+    });
   }
 
 

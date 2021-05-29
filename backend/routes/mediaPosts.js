@@ -8,7 +8,7 @@ const router = express.Router();
 
 
 
-router.post("",checkAuth, exstractFile, mediaPostController.createMedia);
+router.post("/",checkAuth, exstractFile, mediaPostController.createMedia);
 
 router.put("/:id",checkAuth, exstractFile, mediaPostController.updateMedia);
 
