@@ -4,12 +4,18 @@ const jwt = require("jsonwebtoken")
 const User = require("../models/user");
 
 exports.createUser = (req, res, next) => {
+  let profilePicture = req.body.profilePicture;
   bcrypt.hash(req.body.password, 10).then(hash => {
     const user = new User({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
-      password: hash
+      password: hash,
+      profilePicture: profilePicture,
+      profileInfo: req.body.profileInfo,
+      dateOfBirth: req.body.dateOfBirth,
+      interests: req.body.interests,
+      myEvents: req.body.myEvents
     });
     user.save()
       .then(result => {
@@ -65,6 +71,62 @@ exports.userLogin =  (req, res, next) => {
   });
 }
 
+exports.getUsers = (req, res, next) => {
+  User.find().then(documents => {
+    res.status(200).json({
+      message: "Posts fetched successfully!",
+      users: documents
+    });
+  });
+};
+
+exports.getUser = (req, res, next) => {
+  User.findById(req.params.id).then(user => {
+    if (user) {
+      res.status(200).json(user);
+    } else {
+      res.status(404).json({ message: "Post Not found" });
+    }
+  })
+  .catch(error => {
+    res.status(500).json({
+      message: "hente media fejlede"
+    })
+  });
+}
+
 exports.deleteUser = (req, res, next) => {
 
 }
+
+exports.editProfile = (req, res, next) => {
+  let profilePicture = req.body.profilePicture;
+  if(req.file){
+    const url = req.protocol + "://" + req.get("host");
+    profilePicture = url + "/media/" + req.file.filename;
+  }
+  const user = new User({
+    _id: req.body.id,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    profilePicture: profilePicture,
+    profileInfo: req.body.profileInfo,
+    dateOfBirth: req.body.dateOfBirth,
+    interests: req.body.interests,
+    myEvents: req.body.myEvents
+  });
+  console.log(user)
+  User.updateOne({_id: req.body.id}, user).then(result => {
+      //if (result) {
+        res.status(200).json({ message: "updated profile successful" });
+      //} //else {
+       // res.status(401).json({ message: "not authorized" });
+      //}
+    });
+    //.catch(error => {
+    //  res.status(500).json({
+    //    message: "kunne ikke opdater medie"
+    //  })
+   // });
+};

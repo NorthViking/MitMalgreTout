@@ -1,6 +1,7 @@
 const Media = require("../models/media");
 
 
+
 exports.createMedia = (req, res, next) => {
   const url = req.protocol + "://" + req.get("host");
   const media = new Media({
@@ -56,7 +57,7 @@ exports.updateMedia = (req, res, next) => {
   });
 };
 
-exports.getMedias = (req, res, next) => {
+ exports.getMedias = (req, res, next) => {
   const pageSize = +req.query.pagesize;
   const currentPage = +req.query.page;
   const mediaQuery = Media.find();
@@ -71,7 +72,7 @@ exports.getMedias = (req, res, next) => {
     })
     .then(count => {
       res.status(200).json({
-        message: "Posts Fetched successfully",
+        message: "Posts fetched successfully",
         media: fechedMedia,
         maxMedia: count,
       });
@@ -81,8 +82,7 @@ exports.getMedias = (req, res, next) => {
         message: "hente media fejlede"
       })
     });
-};
-
+ };
 
 
 exports.getMedia = (req, res, next) => {
@@ -98,7 +98,7 @@ exports.getMedia = (req, res, next) => {
       message: "hente media fejlede"
     })
   });
-}
+ }
 
 
 
@@ -118,3 +118,4 @@ exports.deleteMedia = (req, res, next) => {
     })
   });
 }
+
