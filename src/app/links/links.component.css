@@ -1,0 +1,34 @@
+mat-form-field,
+textarea{
+  width: 100%;
+}
+
+mat-spinner{
+  margin: auto;
+}
+
+input[type="file"]{
+  visibility: hidden;
+}
+input[type="file"]{
+  visibility:hidden;
+}
+
+a{
+  color: #E5998e;
+}
+
+.btn_event{
+  margin-left: 100px;
+}
+.btn_event{
+  margin-right: 100px
+}
+
+a :hover{
+  text-decoration: underline;
+}
+
+.spacer{
+  flex: 1 1 auto;
+}

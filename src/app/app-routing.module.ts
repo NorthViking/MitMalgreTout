@@ -10,12 +10,14 @@ import { PublicGalleriComponent } from './galleri/public-galleri/public-galleri.
 import  {PersonalGalleriComponent } from './galleri/personal-galleri/personal-galleri.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ProfileMediaComponent } from './profile/profile-media/profile-media.component';
+import { LinksComponent } from './links/links.component';
 
 
 const routes: Routes = [
   {path:'', component: WelcomeComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'links', component: LinksComponent},
   {path: 'profiles', component: ProfileComponent, children:[
     {path: 'profileMedia', component: ProfileMediaComponent, canActivate: [AuthGuard]},
     {path: 'profileMedia/edit/:profileMediaId', component: ProfileMediaComponent, canActivate:[AuthGuard]}]},
