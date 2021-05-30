@@ -99,6 +99,33 @@ exports.deleteUser = (req, res, next) => {
 
 }
 
+exports.createProfile = (req, res, next) => {
+  const url = req.protocol + "://" + req.get("host");
+  const user = new User({
+    profilePicture: url + "/ProfileImage/" + req.file.filename,
+    email: req.body.email,
+    profilePicture: profilePicture,
+    profileInfo: req.body.profileInfo,
+    dateOfBirth: req.body.dateOfBirth,
+    interests: req.body.interests,
+    myEvents: req.body.myEvents
+  });
+  user.save().then(createdProfile => {
+    res.status(201).json({
+      message: "post added successfully",
+      post: {
+        ...createdProfile,
+        id: createdProfile._id,
+      },
+    });
+  })
+  .catch(error => {
+    res.status(500).json({
+      message:"Vi fejled i at gemme dit profile"
+  });
+  });
+}
+
 exports.editProfile = (req, res, next) => {
   let profilePicture = req.body.profilePicture;
   if(req.file){
@@ -118,15 +145,15 @@ exports.editProfile = (req, res, next) => {
   });
   console.log(user)
   User.updateOne({_id: req.body.id}, user).then(result => {
-      //if (result) {
+      if (result.n> 0) {
         res.status(200).json({ message: "updated profile successful" });
-      //} //else {
-       // res.status(401).json({ message: "not authorized" });
-      //}
+        } else {
+        res.status(401).json({ message: "not authorized" });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: "kunne ikke opdater medie"
+      })
     });
-    //.catch(error => {
-    //  res.status(500).json({
-    //    message: "kunne ikke opdater medie"
-    //  })
-   // });
 };

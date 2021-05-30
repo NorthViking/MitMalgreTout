@@ -2,6 +2,9 @@
   <a mat-list-item routerLink="" (click)="onClose()">
     <span class="nav-caption">Velkommen</span>
   </a>
+  <a *ngIf="userIsAuthenticated" mat-list-item routerLink="/profiles" (click)="onClose()">
+    <span class="nav-caption">Profile</span>
+  </a>
   <a *ngIf="!userIsAuthenticated" mat-list-item routerLink="/signup" (click)="onClose()">
     <span class="nav-caption">Opret Bruger</span>
   </a>
