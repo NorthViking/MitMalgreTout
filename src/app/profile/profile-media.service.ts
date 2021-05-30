@@ -20,20 +20,32 @@ export class ProfileMediaService{
     return [...this.medias];
   }
 
-  getMediaUpdatedListener(){
-
+  getMediaUpdateListener(){
+    return this.mediasUpdated.asObservable();
   }
 
   getPictureFiles(){
     return [...this.pictureFiles];
   }
 
+  getPictureFileUpdateListener(){
+    return this.pictureFilesUpdated.asObservable();
+  }
+
   getVideoFiles(){
     return [...this.videoFiles];
   }
 
+  getVideoFileUpdateListener(){
+    return this.videoFilesUpdated.asObservable();
+  }
+
   getSoundFiles(){
     return [...this.soundFiles];
+  }
+
+  getSoundFileUpdateListener(){
+    return this.soundFilesUpdated.asObservable();
   }
 
   addMedia(title: string, content: string){

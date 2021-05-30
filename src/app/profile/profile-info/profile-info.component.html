@@ -1,9 +1,13 @@
-<mat-accordion multi="true" *ngIf="media.length > 0" >
+<mat-accordion multi="true" *ngIf="medias.length > 0" >
   <mat-expansion-panel *ngFor="let media of media">
     <mat-expansion-panel-header>
       {{ media.title }}
     </mat-expansion-panel-header>
   <p> {{ media.content }}</p>
+  <mat-action-row>
+    <button mat-button>Redigér</button>
+    <button mat-button>Slet</button>
+  </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>
-<p class="mat-body-1" *ngIf="media.length <= 0">Not added yet!</p>
+<p class="mat-body-1" *ngIf="medias.length <= 0">Not added yet!</p>

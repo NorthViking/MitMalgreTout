@@ -1,6 +1,6 @@
 import { Component} from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ProfileMediaService } from '../post-media.service';
+import { ProfileMediaService } from '../profile-media.service';
 import { Media } from '../profile-media.model';
 import { PictureFile } from '../profile-media.model';
 import { VideoFile } from '../profile-media.model';
@@ -29,6 +29,7 @@ export class ProfileMediaComponent {
       content: form.value.content
     };
     this.profileMediaService.addMedia(form.value.title, form.value.content);
+    form.resetForm();
   }
 
   onAddPictureFile(form: NgForm){
@@ -40,6 +41,7 @@ export class ProfileMediaComponent {
       content: form.value.content
     };
     this.profileMediaService.addPictureFile(form.value.title, form.value.content);
+    form.resetForm();
   }
 
   onAddVideoFile(form: NgForm){
@@ -51,6 +53,7 @@ export class ProfileMediaComponent {
       content: form.value.content
     };
     this.profileMediaService.addVideoFile(form.value.title, form.value.content)
+    form.resetForm();
   }
 
   onAddSoundFile(form: NgForm){
@@ -62,5 +65,6 @@ export class ProfileMediaComponent {
       content: form.value.content
     };
     this.profileMediaService.addSoundFile(form.value.title, form.value.content)
+    form.resetForm();
   }
 }
