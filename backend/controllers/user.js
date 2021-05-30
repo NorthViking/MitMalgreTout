@@ -103,7 +103,7 @@ exports.editProfile = (req, res, next) => {
   let profilePicture = req.body.profilePicture;
   if(req.file){
     const url = req.protocol + "://" + req.get("host");
-    profilePicture = url + "/media/" + req.file.filename;
+    profilePicture = url + "/ProfileImage/" + req.file.filename;
   }
   const user = new User({
     _id: req.body.id,
