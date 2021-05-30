@@ -1,17 +1,59 @@
 <mat-card>
+  <form (submit)="onAddMedia(mediaForm)" #mediaForm="ngForm"
+  (submit)="onAddPictureFile(pictureFileForm)" #pictureFileForm="ngForm"
+  (submit)="onAddVideoFile(videoFileForm)" #videoFileForm="ngForm"
+  (submit)="onAddSoundFile(soundFileForm)" #soundFileForm="ngForm">
+
   <mat-form-field>
-    <input matInput type="text" [(ngModel)]="enteredTitle">
+    <input
+    matInput
+    type="text"
+    name="title"
+    ngModel
+    required
+    minlength="1"
+    #title="ngModel">
+    <mat-error *ngIf="title.invalid">Indtast venligst en medietitle</mat-error>
   </mat-form-field>
+
+    <mat-form-field>
+      <input
+      matInput
+      type="text"
+      name="title"
+      ngModel
+      required
+      minlength="1"
+      #title="ngModel">
+      <mat-error *ngIf="title.invalid">Indtast venligst en billedfiltitle</mat-error>
+      <mat-error></mat-error>
+    </mat-form-field>
+
   <mat-form-field>
-    <input matInput type="text" [(ngModel)]="enteredTitle">
+    <input
+    matInput
+    type="text"
+    name="title"
+    ngModel
+    required
+    minlength="1"
+    #title>
+    <mat-error *ngIf="title.invalid">Indtast venligst en videofiltitel</mat-error>
   </mat-form-field>
-  <mat-form-field>
-    <input matInput type="text" [(ngModel)]="enteredTitle">
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput type="text" [(ngModel)]="enteredTitle">
-  </mat-form-field>
+
+    <mat-form-field>
+      <input
+      matInput
+      type="text"
+      name="title"
+      ngModel
+      required
+      minlength="1"
+      #title="ngModel">
+      <mat-error *ngIf="title.invalid">Indtast venligst en lydfiltitel</mat-error>
+    </mat-form-field>
   <mat-toolbar color="primary">Mit Malgré Tout</mat-toolbar>
+
   <mat-form-field>
     <textarea matInput rows="6" [(ngModel)]="enteredContent"></textarea>
     <textarea matInput rows="6" [(ngModel)]="enteredContent"></textarea>
@@ -20,18 +62,21 @@
   </mat-form-field>
 
   <hr>
+  <button mat-raised-button color="primary"(click)="onAddMedia(mediaForm)">Vælg et medie
+  </button>
   <button mat-raised-button
   color="primary"
-  (click)="onAddPictureFile()"
+  (click)="onAddPictureFile(pictureFileForm)"
   >Vælg en billedefil</button>
 
   <button mat-raised-button
   color="primary"
-  (click)="onAddVideoFile()"
+  (click)="onAddVideoFile(videoFileForm)"
   >Vælg en videofil</button>
 
   <button mat-raised-button
   color="primary"
-  (click)="onAddSoundFile()"
+  (click)="onAddSoundFile(soundFileForm)"
   >Vælg en lydfil</button>
+</form>
 </mat-card>

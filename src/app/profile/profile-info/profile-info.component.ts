@@ -1,4 +1,10 @@
 import { Component, OnInit, Input} from '@angular/core';
+import { from } from 'rxjs';
+import { Media } from '../profile-media.model';
+import { PictureFile } from '../profile-media.model';
+import { VideoFile } from '../profile-media.model';
+import { SoundFile } from '../profile-media.model';
+import { ProfileMediaService } from '../post-media.service';
 
 @Component({
   selector: 'app-profile-info',
@@ -18,14 +24,18 @@ export class ProfileInfoComponent implements OnInit {
     //{title: 'third sound file', content: 'third sound file'},
   //];
 
-  @Input() media = [];
-  @Input() pictureFile = [];
-  @Input() videoFile = [];
-  @Input() soundFile = [];
+  medias: Media[] = [];
+  pictureFiles: PictureFile [] = [];
+  videoFiles: VideoFile [] = [];
+  soundFiles: SoundFile [] = [];
 
-  constructor() { }
+  constructor(public profileMediaService: ProfileMediaService) {}
 
   ngOnInit(): void {
+    this.medias = this.profileMediaService.getMedias();
+    this.pictureFiles = this.profileMediaService.getPictureFiles();
+    this.videoFiles = this.profileMediaService.getVideoFiles();
+    this.soundFiles = this.profileMediaService.getSoundFiles();
   }
 
 }

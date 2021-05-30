@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Output} from '@angular/core';
+import { Component} from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { ProfileMediaService } from '../post-media.service';
+import { Media } from '../profile-media.model';
+import { PictureFile } from '../profile-media.model';
+import { VideoFile } from '../profile-media.model';
+import { SoundFile } from '../profile-media.model';
+
 
 @Component({
   selector: 'app-profile-media',
@@ -7,33 +14,53 @@ import { Component, EventEmitter, Output} from '@angular/core';
 })
 
 export class ProfileMediaComponent {
-  enteredTitle = '';
-  enteredContent = '';
-  @Output() mediaCreated = new EventEmitter();
-  @Output() pictureFileCreated= new EventEmitter();
-  @Output() videoFileCreated= new EventEmitter();
-  @Output() soundFileCreated= new EventEmitter();
+  enteredTitle = "";
+  enteredContent = "";
 
-  onAddMedia(){
-    const media = {title: this.enteredTitle, content: this.enteredContent}
-    this.mediaCreated.emit(media);
+  constructor(public profileMediaService: ProfileMediaService){
+
+  }
+  onAddMedia(form: NgForm) {
+    if(form.invalid) {
+      return;
+    }
+    const media = {
+      title: form.value.title,
+      content: form.value.content
+    };
+    this.profileMediaService.addMedia(form.value.title, form.value.content);
   }
 
-  onAddPictureFile() {
-    const pictureFile = {title: this.enteredTitle,
-      content: this.enteredContent}
-      this.pictureFileCreated.emit(pictureFile);
+  onAddPictureFile(form: NgForm){
+    if(form.invalid){
+      return;
+    }
+    const pictureFile = {
+      title: form.value.title,
+      content: form.value.content
+    };
+    this.profileMediaService.addPictureFile(form.value.title, form.value.content);
   }
 
-  onAddVideoFile(){
-    const videoFile = {title: this.enteredTitle,
-      content: this.enteredContent}
-      this.videoFileCreated.emit(videoFile);
+  onAddVideoFile(form: NgForm){
+    if(form.invalid){
+      return;
+    }
+    const videoFile = {
+      title: form.value.title,
+      content: form.value.content
+    };
+    this.profileMediaService.addVideoFile(form.value.title, form.value.content)
   }
 
-  onAddSoundFile(){
-  const soundFile = {title: this.enteredTitle,
-    content: this.enteredContent}
-    this.soundFileCreated.emit(soundFile);
+  onAddSoundFile(form: NgForm){
+    if(form.invalid){
+      return;
+    }
+    const soundFile = {
+      title: form.value.title,
+      content: form.value.content
+    };
+    this.profileMediaService.addSoundFile(form.value.title, form.value.content)
   }
 }
