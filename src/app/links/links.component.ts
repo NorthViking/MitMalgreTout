@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Info } from './links.model';
-import { LinksService } from './links.service'
+import { linksService } from './links.service';
 
 @Component({
   selector: 'app-links-create',
@@ -29,7 +29,7 @@ export class LinksComponent implements OnInit{
   profileInfo : Info;
   Info: { profileInfoId: any; profilePicture: any; firstName: any; lastName: any; dateOfBirth: any; email: any; phoneNumber: any; interests: any; myEvents: any; myMedia: any; };
 
-  constructor(public linksService: LinksService, public route: ActivatedRoute){}
+  constructor(public linkService: linksService, public route: ActivatedRoute){}
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -89,7 +89,7 @@ export class LinksComponent implements OnInit{
     if(form.valid){
       return;
     }
-    this.linksService.addProfileInfo(
+    this.linkService.addProfileInfo(
       form.value.profileInfoId,
        form.value.profileInfo,
        form.value.profilePicture,
