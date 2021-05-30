@@ -10,6 +10,8 @@ router.post("/signup", userController.createUser);
 
 router.post("/login" , userController.userLogin);
 
+router.post("/" ,userController.createProfile)
+
 router.get("", userController.getUsers);
 
 router.get("/:id", userController.getUser);
