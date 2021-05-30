@@ -10,6 +10,10 @@ export class AppComponent implements OnInit {
   title = 'MitMalgreTout';
   constructor(private authService: AuthService){}
 
+  onMediaAdded(){
+
+  }
+
   ngOnInit(){
     this.authService.autoAuthUser();
   }

@@ -52,19 +52,19 @@ export class ProfileComponent implements OnInit{
         this.mode = 'edit';
         this.profileInfoId = paramMap.get("profileInfoId");
         this.isLoading = true;
-        this.profileService.getProfileInfo(this.profileInfoId).subscribe(profileData => {
-          this.isLoading = false;
-          this.Info = {
-            profileInfoId: profileData.profileInfoId,
-            profilePicture: profileData.profilePicture,
-            firstName: profileData.firstName,
-            lastName: profileData.lastName,
-            dateOfBirth: profileData.dateOfBirth,
-            email: profileData.email,
-            phoneNumber: profileData.profileInfo,
-            interests: profileData.interests,
-            myEvents: profileData.myEvents,
-            myMedia: profileData.myMedia
+        //this.profileService.getProfileInfo(this.profileInfoId).subscribe(profileData => {
+          //this.isLoading = false;
+          //this.Info = {
+            //profileInfoId: profileData.profileInfoId,
+            //profilePicture: profileData.profilePicture,
+            //firstName: profileData.firstName,
+            //lastName: profileData.lastName,
+            //dateOfBirth: profileData.dateOfBirth,
+            //email: profileData.email,
+            //phoneNumber: profileData.profileInfo,
+            //interests: profileData.interests,
+            //myEvents: profileData.myEvents,
+            //myMedia: profileData.myMedia
           };
           this.form.setValue({profileInfoId: this.Info.profileInfoId,
             profilePicture: this.Info.profilePicture,
@@ -78,11 +78,11 @@ export class ProfileComponent implements OnInit{
             myMedia: this.Info.myMedia
           });
         });
-      } else{
-        this.mode = 'create';
-        this.profileInfoId = null;
-      }
-    });
+      //} else{
+       // this.mode = 'create';
+        //this.profileInfoId = null;
+     // }
+    //});
   }
 
   onAddProfileInfo(form: NgForm) {

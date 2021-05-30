@@ -42,8 +42,8 @@ getProfileInfoUpdateListener(){
   return this.profileInfosUpdated.asObservable();
 }
 
-getProfileInfo(id:string){
-  return {...this.profileInfos.find(p => p.id === id)};
+getProfileInfo(profileInfoId:string){
+  return {...this.profileInfos.find(p => p.profileInfoId === profileInfoId)};
 }
 
 addProfileInfo(_profileInfoId: string, profileInfo: string,
