@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit{
   mode = 'create';
   private profileInfoId: string;
   profileInfo : Info;
-  Info: { profileInfoId: any; firstName: any; lastName: any; dateOfBirth: any; email: any; phoneNumber: any; interests: any; myEvents: any; myMedia: any; };
+  Info: { profileInfoId: any; profilePicture: any; firstName: any; lastName: any; dateOfBirth: any; email: any; phoneNumber: any; interests: any; myEvents: any; myMedia: any; };
 
   constructor(public profileService: ProfileService, public route: ActivatedRoute){}
 
