@@ -9,3 +9,9 @@
     </main>
   </mat-sidenav-content>
 </mat-sidenav-container>
+<app-profile-media></app-profile-media>
+<main>
+  <app-profile-create></app-profile-create>
+  <app-profile-info (mediaCreated)="onMediaAdded($event)"></app-profile-info>
+  <app-profile-media (media)="media"></app-profile-media>
+</main>

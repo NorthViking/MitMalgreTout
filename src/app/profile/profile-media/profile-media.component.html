@@ -1,20 +1,37 @@
-<mat-nav-list>
-  <a mat-list-item routerLink="" (click)="onClose()">
-    <span class="nav-caption">Velkommen</span>
-  </a>
-  <a *ngIf="!userIsAuthenticated" mat-list-item routerLink="/signup" (click)="onClose()">
-    <span class="nav-caption">Opret Bruger</span>
-  </a>
-  <a *ngIf="!userIsAuthenticated" mat-list-item routerLink="/login" (click)="onClose()">
-    <mat-icon>login</mat-icon>
-    <span class="nav-caption">Log Ind</span>
-  </a>
-  <a mat-list-item routerLink="/galleri/public" (click)="onClose()">
-    <mat-icon>collections</mat-icon>
-    <span class="nav-caption">Galleri</span>
-  </a>
-  <a *ngIf="userIsAuthenticated" mat-list-item (click)="onLogout()" (click)="onClose()">
-    <mat-icon>logout</mat-icon>
-    <span class="nav-caption">Log ud</span>
-  </a>
-</mat-nav-list>
+<mat-card>
+  <mat-form-field>
+    <input matInput type="text" [(ngModel)]="enteredTitle">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" [(ngModel)]="enteredTitle">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" [(ngModel)]="enteredTitle">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput type="text" [(ngModel)]="enteredTitle">
+  </mat-form-field>
+  <mat-toolbar color="primary">Mit Malgré Tout</mat-toolbar>
+  <mat-form-field>
+    <textarea matInput rows="6" [(ngModel)]="enteredContent"></textarea>
+    <textarea matInput rows="6" [(ngModel)]="enteredContent"></textarea>
+    <textarea matInput rows="6" [(ngModel)]="enteredContent"></textarea>
+    <textarea matInput rows="6" [(ngModel)]="enteredContent"></textarea>
+  </mat-form-field>
+
+  <hr>
+  <button mat-raised-button
+  color="primary"
+  (click)="onAddPictureFile()"
+  >Vælg en billedefil</button>
+
+  <button mat-raised-button
+  color="primary"
+  (click)="onAddVideoFile()"
+  >Vælg en videofil</button>
+
+  <button mat-raised-button
+  color="primary"
+  (click)="onAddSoundFile()"
+  >Vælg en lydfil</button>
+</mat-card>

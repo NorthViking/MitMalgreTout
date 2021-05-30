@@ -1,37 +1,39 @@
-import { Component, Output, EventEmitter, OnDestroy, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/auth/auth.service';
-import { Subscription } from 'rxjs';
+import { Component, EventEmitter, Output} from '@angular/core';
 
 @Component({
   selector: 'app-profile-media',
   templateUrl: './profile-media.component.html',
   styleUrls: ['./profile-media.component.css']
 })
-export class ProfileMediaComponent implements OnInit, OnDestroy {
-  @Output() closeSidenV = new EventEmitter<void>();
 
-  userIsAuthenticated = false;
-  private authListenerSubs: Subscription;
-  closeSidenav: any;
-  constructor(private authServise: AuthService) { }
+export class ProfileMediaComponent {
+  enteredTitle = '';
+  enteredContent = '';
+  @Output() mediaCreated = new EventEmitter();
+  @Output() pictureFileCreated= new EventEmitter();
+  @Output() videoFileCreated= new EventEmitter();
+  @Output() soundFileCreated= new EventEmitter();
 
-  ngOnInit() {
-    this.userIsAuthenticated = this.authServise.getIsAuth();
-    this.authListenerSubs = this.authServise
-      .getAuthStatusListener()
-      .subscribe(isAuthenticated => {
-        this.userIsAuthenticated = isAuthenticated;
-    });
+  onAddMedia(){
+    const media = {title: this.enteredTitle, content: this.enteredContent}
+    this.mediaCreated.emit(media);
   }
 
-  onLogout() {
-    this.authServise.logout();
+  onAddPictureFile() {
+    const pictureFile = {title: this.enteredTitle,
+      content: this.enteredContent}
+      this.pictureFileCreated.emit(pictureFile);
   }
 
-  ngOnDestroy() {
-    this.authListenerSubs.unsubscribe();
+  onAddVideoFile(){
+    const videoFile = {title: this.enteredTitle,
+      content: this.enteredContent}
+      this.videoFileCreated.emit(videoFile);
   }
-  onClose() {
-    this.closeSidenav.emit();
+
+  onAddSoundFile(){
+  const soundFile = {title: this.enteredTitle,
+    content: this.enteredContent}
+    this.soundFileCreated.emit(soundFile);
   }
 }

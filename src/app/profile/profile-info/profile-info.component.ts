@@ -1,35 +1,31 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { ProfileService } from '../profile.service';
-import { Info } from '../profile.model';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, Input} from '@angular/core';
 
 @Component({
   selector: 'app-profile-info',
   templateUrl: './profile-info.component.html',
   styleUrls: ['./profile-info.component.css']
 })
-export class ProfileInfoComponent implements OnInit, OnDestroy {
-profileInfos: Info[] = [];
-private profileInfosSub: Subscription;
+export class ProfileInfoComponent implements OnInit {
+  //media = [
+    //{title: 'first picture file', content: 'first picture file'},
+    //{title: 'second picture file', content: 'second picture file'},
+    //{title: 'third picture file', content: 'third picture file'},
+    //{title: 'first video file', content: 'first videoFile'},
+    //{title: 'second video file', content: 'second videoFile'},
+    //{title: 'third video file', content: 'third videoFile'},
+    //{title: 'first sound file', content: 'first sound file'},
+    //{title: 'second sound file', content: 'second sound file'},
+    //{title: 'third sound file', content: 'third sound file'},
+  //];
 
-  constructor(public profileService: ProfileService){}
+  @Input() media = [];
+  @Input() pictureFile = [];
+  @Input() videoFile = [];
+  @Input() soundFile = [];
 
-  ngOnInit() {
+  constructor() { }
 
-    this.profileService.getProfileInfos();
-    this.profileInfosSub = this.profileService.getProfileInfoUpdateListener()
-    .subscribe((profileInfos: Info[]) => {
-      this.profileInfos = profileInfos;
-    });
+  ngOnInit(): void {
   }
 
-  onDelete(profileInfoId: string) {
-    this.profileService.deleteProfileInforId(profileInfoId);
-
-  }
-
- ngOnDestroy(){
-   this.profileInfosSub.unsubscribe();
- }
 }

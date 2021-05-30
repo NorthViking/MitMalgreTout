@@ -17,13 +17,17 @@ import { ProfileComponent } from './profile/profile.component';
 import { GalleriComponent } from './galleri/galleri.component';
 import { PublicGalleriComponent } from './galleri/public-galleri/public-galleri.component';
 import { PersonalGalleriComponent } from './galleri/personal-galleri/personal-galleri.component';
-
+import { MatInputModule } from '@angular/material/input';
 import { AuthIntercepter } from './auth/auth-interceptor';
 import { ErrorInterceptor } from './error-interceptor';
 import { ErrorComponent } from './error/error.component';
-import { ProfileInfoComponent } from './profile/profile-info/profile-info.component';
 import { ProfileMediaComponent } from './profile/profile-media/profile-media.component';
 import { LinksComponent } from './links/links.component';
+import { MatCardModule } from '@angular/material/card'
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { ProfileInfoComponent } from './profile/profile-info/profile-info.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -38,9 +42,9 @@ import { LinksComponent } from './links/links.component';
     PublicGalleriComponent,
     PersonalGalleriComponent,
     ErrorComponent,
-    ProfileInfoComponent,
     ProfileMediaComponent,
-    LinksComponent
+    LinksComponent,
+    ProfileInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +56,11 @@ import { LinksComponent } from './links/links.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatInputModule,
+    MatCardModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatExpansionModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthIntercepter, multi: true},
