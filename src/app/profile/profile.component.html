@@ -5,7 +5,7 @@
         <mat-card-title fxLayoutAlign="center center">Mit Malgré Tout</mat-card-title>
         <div fxFlex fsLayout fxLayoutAlign="flex-end" >
           <button mat-icon-button color="primary" aria-lable="heart" type="button"
-          (click)="filePicker.click()">
+          >
           <mat-icon>favorite</mat-icon>
         </button>
         <button mat-icon-button class="share" color="primary" aria-label="share">
@@ -21,28 +21,33 @@
     <mat-card-content fxLayout="column" fxLayoutAlign="left left" fxLayoutGap="20px">
       <mat-spinner *ngIf="isLoading"></mat-spinner>
       <form *ngIf="!isLoading"></form>
-      <form (submit)="onAddProfileInfo(profileInfoForm)"
+      <form
        #profileInfoForm= "ngForm"
        fxLayout="column"
        fxLayoutAlign= "center center"
        fxLayoutGap="15px">
-
+       <div class="image-preview" *ngIf="profileImagePreview !== '' && profileImagePreview && form.get('profilePicture').valid">
+        <img [src]="profileImagePreview" >
+      </div>
         <div fxLayout="column" fxLayoutAlign="left left" fxLayoutGap="15px">
-          <input type="file" #filePicker>
+          <input type="file" #filePicker (change)="onImagePicked($event)">
           <button mat-raised-button type="button" color="primary" (click)="filePicker.click()">Vælg profilbillede</button>
         </div>
 
         <mat-form-field>
+          <p>Fornavn</p>
           <input matInput
           name="firstName"
           ngModel
           #firstName
           placeholder="Fornavn">
           <mat-icon matSuffix color="primary">person</mat-icon>
+
           <mat-error *ngIf="firstName.invalid">Indtast venligst dit fornavn</mat-error>
         </mat-form-field>
 
         <mat-form-field>
+          <p>Efternavn</p>
           <input matInput
           type="text"
           name="lastName"
@@ -50,18 +55,22 @@
           #lastName
           placeholder="Efternavn">
           <mat-icon matSuffix color="primary">person</mat-icon>
+
         <mat-error *ngIf="lastName.invalid">Indtast venligst dit efternavn</mat-error>
         </mat-form-field>
 
         <mat-form-field>
+          <p>Fødselsdag</p>
           <input matInput color="primary"
           type="date"
           name="dateOfBirth"
           #datePicker
           placeholder="Fødselsdag">
+
         </mat-form-field>
 
         <mat-form-field>
+          <p>Email</p>
           <input matInput
           type="text"
           name="email"
@@ -73,14 +82,17 @@
         </mat-form-field>
 
         <mat-form-field>
+          <p>Telefonnummer</p>
           <input matInput
           type="text"
           name="phoneNumber"
           placeholder="Telefonnummer">
           <mat-icon matSuffix color="primary">phone</mat-icon>
+
         </mat-form-field>
 
         <mat-form-field>
+          <p>Interesser</p>
           <input type="text"
           matInput
           name="interests"

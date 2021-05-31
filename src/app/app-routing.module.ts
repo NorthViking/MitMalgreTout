@@ -13,14 +13,17 @@ import { ProfileMediaComponent } from './profile/profile-media/profile-media.com
 import { LinksComponent } from './links/links.component';
 
 
+
+
 const routes: Routes = [
   {path:'', component: WelcomeComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'login', component: LoginComponent},
   {path: 'links', component: LinksComponent},
-  {path: 'profiles', component: ProfileComponent, children:[
+  {path: 'profiles', component: ProfileComponent, canActivate: [AuthGuard], children:[
     {path: 'profileMedia', component: ProfileMediaComponent, canActivate: [AuthGuard]},
     {path: 'profileMedia/edit/:profileMediaId', component: ProfileMediaComponent, canActivate:[AuthGuard]}]},
+  {path:'profiles/edit/:userId', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'galleri', component: GalleriComponent, children:[
     {path: 'public', component: PublicGalleriComponent},
     {path: 'private', component: PersonalGalleriComponent, canActivate: [AuthGuard]},

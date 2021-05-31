@@ -33,6 +33,7 @@ import { AuthIntercepter } from './auth/auth-interceptor';
 import { ErrorInterceptor } from './error-interceptor';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,6 +50,7 @@ import { ErrorInterceptor } from './error-interceptor';
     ProfileMediaComponent,
     ProfileInfoComponent,
     LinksComponent
+
   ],
   imports: [
     BrowserModule,

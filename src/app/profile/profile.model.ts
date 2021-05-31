@@ -1,14 +1,11 @@
-export interface Info{
-  [x: string]: string;
-  profileInfoId: string;
-  profileInfo: string;
-  profilePicture: string;
+export interface User{
+  id: string;
   firstName: string;
   lastName: string;
-  dateofBirth: string;
   email: string;
+  profilePicturePath: string;
+  dateOfBirth: any;
   phoneNumber: string;
   interests: string;
-  myEvents: string;
-  myMedia: string;
+
 }

@@ -29,7 +29,7 @@ export class PersonalGalleriComponent implements OnInit, OnDestroy {
   medias: Media[] =[];
   form: FormGroup;
   imagePreview: string;
-  private mode = 'upload';
+  private mode = 'normal';
   private mediaId: string;
   private galleriSub: Subscription;
   private authStatusSub: Subscription;
@@ -77,7 +77,7 @@ export class PersonalGalleriComponent implements OnInit, OnDestroy {
           });
         });
       } else{
-        this.mode = "upload";
+        this.mode = "normal";
         this.mediaId = null;
       }
     });
@@ -117,7 +117,7 @@ export class PersonalGalleriComponent implements OnInit, OnDestroy {
       return;
     }
     this.isLoading = true;
-    if (this.mode === 'upload') {
+    if (this.mode === 'normal') {
       this.galleriServise.addMedia(
         this.form.value.title,
         this.form.value.image,
