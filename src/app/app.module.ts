@@ -10,8 +10,6 @@ import { GalleriComponent } from './galleri/galleri.component';
 import { PublicGalleriComponent } from './galleri/public-galleri/public-galleri.component';
 import { PersonalGalleriComponent } from './galleri/personal-galleri/personal-galleri.component';
 import { ErrorComponent } from './error/error.component';
-import { ProfileMediaComponent } from './profile/profile-media/profile-media.component';
-import { LinksComponent } from './links/links.component';
 import { ProfileInfoComponent } from './profile/profile-info/profile-info.component';
 
 import { NgModule } from '@angular/core';
@@ -46,9 +44,7 @@ import { ErrorInterceptor } from './error-interceptor';
     PublicGalleriComponent,
     PersonalGalleriComponent,
     ErrorComponent,
-    ProfileMediaComponent,
     ProfileInfoComponent,
-    LinksComponent
   ],
   imports: [
     BrowserModule,

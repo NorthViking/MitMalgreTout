@@ -11,6 +11,7 @@ import  {PersonalGalleriComponent } from './galleri/personal-galleri/personal-ga
 import { AuthGuard } from './auth/auth.guard';
 import { ProfileMediaComponent } from './profile/profile-media/profile-media.component';
 import { LinksComponent } from './links/links.component';
+import { ProfileInfoComponent } from './profile/profile-info/profile-info.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,8 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'links', component: LinksComponent},
   {path: 'profiles', component: ProfileComponent, children:[
+    {path: 'profileInfo', component: ProfileInfoComponent, canActivate: [AuthGuard]},
+    { path: 'profileInfo/edit/:profileInfoId', component: ProfileInfoComponent, canActivate:[AuthGuard]},
     {path: 'profileMedia', component: ProfileMediaComponent, canActivate: [AuthGuard]},
     {path: 'profileMedia/edit/:profileMediaId', component: ProfileMediaComponent, canActivate:[AuthGuard]}]},
   {path: 'galleri', component: GalleriComponent, children:[
