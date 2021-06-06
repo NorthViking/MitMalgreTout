@@ -10,13 +10,11 @@ router.post("/signup", userController.createUser);
 
 router.post("/login" , userController.userLogin);
 
-router.post("/" ,userController.createProfile)
-
 router.get("", userController.getUsers);
 
 router.get("/:id", userController.getUser);
 
-router.put("/:id" , exstractFile, userController.editProfile );
+router.post("/:id" ,checkAuth, exstractFile, userController.editProfile );
 
-
+router.delete("/:id", checkAuth, userController.deleteUser);
 module.exports = router;

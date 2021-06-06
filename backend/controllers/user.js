@@ -14,8 +14,7 @@ exports.createUser = (req, res, next) => {
       profilePicture: profilePicture,
       profileInfo: req.body.profileInfo,
       dateOfBirth: req.body.dateOfBirth,
-      interests: req.body.interests,
-      myEvents: req.body.myEvents
+      interests: req.body.interests
     });
     user.save()
       .then(result => {
@@ -96,52 +95,39 @@ exports.getUser = (req, res, next) => {
 }
 
 exports.deleteUser = (req, res, next) => {
-
-}
-
-exports.createProfile = (req, res, next) => {
-  const url = req.protocol + "://" + req.get("host");
-  const user = new User({
-    profilePicture: url + "/ProfileImage/" + req.file.filename,
-    email: req.body.email,
-    profilePicture: profilePicture,
-    profileInfo: req.body.profileInfo,
-    dateOfBirth: req.body.dateOfBirth,
-    interests: req.body.interests,
-    myEvents: req.body.myEvents
-  });
-  user.save().then(createdProfile => {
-    res.status(201).json({
-      message: "post added successfully",
-      post: {
-        ...createdProfile,
-        id: createdProfile._id,
-      },
-    });
+  User.deleteOne({ _id: req.params.id })
+  .then(
+    result => {
+      if (result.n > 0) {
+        res.status(200).json({ message: "User deleted" });
+      } else {
+        res.status(401).json({ message: "Not authorized" });
+      }
   })
   .catch(error => {
     res.status(500).json({
-      message:"Vi fejled i at gemme dit profile"
-  });
+      message: "slete media fejlede"
+    })
   });
 }
 
+
+
 exports.editProfile = (req, res, next) => {
-  let profilePicture = req.body.profilePicture;
+  let profilePicturePath = req.body.profilePicturePath;
   if(req.file){
     const url = req.protocol + "://" + req.get("host");
-    profilePicture = url + "/ProfileImage/" + req.file.filename;
+    profilePicturePath = url + "/ProfileImage/" + req.file.filename;
   }
   const user = new User({
     _id: req.body.id,
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     email: req.body.email,
-    profilePicture: profilePicture,
-    profileInfo: req.body.profileInfo,
+    profilePicturePath: profilePicturePath,
+    phoneNumber: req.body.phoneNumber,
     dateOfBirth: req.body.dateOfBirth,
     interests: req.body.interests,
-    myEvents: req.body.myEvents
   });
   console.log(user)
   User.updateOne({_id: req.body.id}, user).then(result => {

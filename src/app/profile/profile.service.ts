@@ -1,83 +1,99 @@
 import { Injectable } from '@angular/core';
-import { Info } from './profile.model';
+import { User } from './profile.model';
 import { Subject } from 'rxjs';
 import { HttpClient } from "@angular/common/http";
-import { map } from 'rxjs/operators';
+import {Router} from '@angular/router';
+
 
 @Injectable({providedIn: 'root'})
 export class ProfileService{
-private profileInfos: Info[] = [];
-private profileInfosUpdated = new Subject<Info[]>();
-  transformedProfileInfos: Info[];
+private profileInfos: User[] = [];
+private profileInfosUpdated = new Subject<User[]>();
+  transformedProfileInfos: User[];
 
-constructor(private http: HttpClient){}
+constructor(private http: HttpClient, private router:Router){}
 
-getProfileInfos(){
-  this.http.get<{message: string, profileInfos: any}>
-  ("http://localhost:3000/api/profileInfos")
-  .pipe(map((profileData) => {
-    return profileData.profileInfos.map( info => {
-      return {
-        profileInfo: info.profileInfo,
-        profilePicture: info.profilePicture,
-        firstName: info.firstName,
-        lastName: info.lastName,
-        dateOfBirth: info.dateOfBirth,
-        email: info.email,
-        phoneNumber: info.phoneNumber,
-        interests: info.interests,
-        myEvents: info.myEvents,
-        myMedia: info.myMedia,
-        profileInfoId: info._profileInfoId
-      };
-    });
-  }))
-  .subscribe(transformedProfileInfos => {
-   this.profileInfos = transformedProfileInfos;
-  this.profileInfosUpdated.next([...this.profileInfos]);
-  });
+
+
+getProfileInfo(id: string){
+  return this.http.get<{
+    _id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    profilePicturePath: string;
+    dateOfBirth: Date;
+    phoneNumber: string;
+    interests: string;
+  }>("http://localhost:3000/api/user/" + id);
+
 }
-
 getProfileInfoUpdateListener(){
   return this.profileInfosUpdated.asObservable();
 }
 
-getProfileInfo(profileInfoId:string){
-  return {...this.profileInfos.find(p => p.profileInfoId === profileInfoId)};
+addProfileInfo(firstName: string, lastName: string,
+  email: string, profilePicture: File ,
+  dateOfBirth: any, phoneNumber: string, interests: string ){
+  const postData = new FormData();
+    postData.append("firstName", firstName);
+    postData.append("lastName", lastName);
+    postData.append("email", email);
+    postData.append("profilePicture", profilePicture);
+    postData.append('dateOfBirth', dateOfBirth);
+    postData.append('phoneNumber', phoneNumber);
+    postData.append("interests", interests);
+  this.http
+  .post<{message: string; post: User}>(
+    "http://localhost:3000/api/mediaPosts",
+    postData
+  )
+  .subscribe(responseData => {
+
+    window.location.reload();
+
+  });
 }
 
-addProfileInfo(_profileInfoId: string, profileInfo: string,
-  profilePicture: string,
-  firstName: string,
-  lastName: string,
-  dateOfBirth: string,
-  email: string,
-  phoneNumber: string,
-  interests: string,
-  myEvents: string,
-  myMedia: string){
-    const Info: Info =
-    { profileInfoId: _profileInfoId,
-      profileInfo: profileInfo,
-      profilePicture: profilePicture,
+updateProfile(id: string, firstName: string, lastName: string,
+  email: string, profilePicture: File | string,
+  dateOfBirth: any, phoneNumber: string, interests: string){
+  let postData: User | FormData;
+  if(typeof profilePicture === "object") {
+    postData = new FormData();
+    postData.append("id", id);
+    postData.append("firstName", firstName);
+    postData.append("lastName", lastName);
+    postData.append("email", email);
+    postData.append("profilePicture", profilePicture);
+    postData.append('dateOfBirth', dateOfBirth);
+    postData.append('phoneNumber', phoneNumber);
+    postData.append("interests", interests);
+
+  } else{
+    postData ={
+      id: id,
       firstName: firstName,
       lastName: lastName,
-      dateofBirth:dateOfBirth,
-      email: email, phoneNumber:
-      phoneNumber, interests:
-      interests, myEvents:
-      myEvents, myMedia:
-      myMedia};
-      this.http.post<{message: string}>('http://localhost:3000/api/profileInfos', profileInfo)
-      .subscribe((responseData) => {
-        console.log(responseData.message);
-        this.profileInfos.push(Info);
-        this.profileInfosUpdated.next([...this.profileInfos]);
-      });
+      email: email,
+      profilePicturePath: profilePicture,
+      dateOfBirth: dateOfBirth,
+      phoneNumber: phoneNumber,
+      interests: interests,
+    };
   }
+  this.http
+  .post("http://localhost:3000/api/user/" + id, postData)
+  .subscribe(response => {
 
-  deleteProfileInforId(_profileInfoId: string){
-    this.http.delete("http://localhost/api/profileInfos" + _profileInfoId)
+    this.router.navigate(["/profiles"]);
+  });
+}
+
+
+
+  deleteProfile(userId: string){
+    this.http.delete("http://localhost/api/users" + userId)
     .subscribe(() => {
       console.log('Deleted!');
     })
