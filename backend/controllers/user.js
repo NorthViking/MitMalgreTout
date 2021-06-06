@@ -111,30 +111,7 @@ exports.deleteUser = (req, res, next) => {
   });
 }
 
-exports.createProfile = (req, res, next) => {
-  const url = req.protocol + "://" + req.get("host");
-  const user = new User({
-    email: req.body.email,
-    profilePicturePath: url + "/ProfileImage/" + req.file.filename,
-    phoneNumber: req.body.phoneNumber,
-    dateOfBirth: req.body.dateOfBirth,
-    interests: req.body.interests,
-  });
-  user.save().then(createdProfile => {
-    res.status(201).json({
-      message: "post added successfully",
-      post: {
-        ...createdProfile,
-        id: createdProfile._id,
-      },
-    });
-  })
-  .catch(error => {
-    res.status(500).json({
-      message:"Vi fejled i at gemme dit profile"
-  });
-  });
-}
+
 
 exports.editProfile = (req, res, next) => {
   let profilePicturePath = req.body.profilePicturePath;

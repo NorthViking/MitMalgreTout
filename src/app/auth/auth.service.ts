@@ -45,7 +45,8 @@ export class AuthService {
 
   login(email: string, password: string) {
     this.http
-    .post<{authData: AuthData,token: string, expiresIn: number, userId: string}>('http://localhost:3000/api/user/login',{
+    .post<{authData: AuthData,token: string, expiresIn: number, userId: string}>
+    ('http://localhost:3000/api/user/login',{
       email: email,
       password: password
     })

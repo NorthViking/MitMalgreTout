@@ -16,7 +16,7 @@ import { mimeType } from '../galleri/personal-galleri/mime-type.validator';
 export class ProfileComponent implements OnInit {
   isLoading = false
   form: FormGroup;
-  mode = 'create';
+  mode = 'normal';
   userId: string;
   user: User;
   profileInfo: User;
@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.form = new FormGroup({
 
-      profilePicture: new FormControl(null, { asyncValidators:[mimeType]}),
+      profilePicture: new FormControl(null, ),
       firstName: new FormControl(null, { validators: [Validators.required] }),
       lastName: new FormControl(null, { validators: [Validators.required] }),
       dateOfBirth: new FormControl(null,),
@@ -64,7 +64,7 @@ export class ProfileComponent implements OnInit {
           });
         });
       } else {
-        this.mode = "createInfo";
+        this.mode = "normal";
         this.userId = null;
       }
 
@@ -88,15 +88,8 @@ export class ProfileComponent implements OnInit {
       return;
     }
     this.isLoading = true;
-    if (this.mode === 'upload') {
-      this.profileService.addProfileInfo(
-        this.form.value.firstName,
-        this.form.value.lastName,
-        this.form.value.email,
-        this.form.value.profilePicture,
-        this.form.value.dateOfBirth,
-        this.form.value.phoneNumber,
-        this.form.value.interests,
+    if (this.mode === 'normal') {
+      this.profileService.getProfileInfo(this.userId
       );
     } else {
       this.profileService.updateProfile(

@@ -83,7 +83,7 @@ updateProfile(id: string, firstName: string, lastName: string,
     };
   }
   this.http
-  .put("http://localhost:3000/api/user/" + id, postData)
+  .post("http://localhost:3000/api/user/" + id, postData)
   .subscribe(response => {
 
     this.router.navigate(["/profiles"]);
