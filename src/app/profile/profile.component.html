@@ -33,7 +33,7 @@
 
         <mat-form-field>
 
-          <input matInput [value]="user.firstName" name="firstName" formControlName="firstName" ngModel #firstName placeholder="Fornavn">
+          <input matInput  name="firstName" formControlName="firstName" ngModel #firstName placeholder="Fornavn">
           <mat-icon matSuffix color="primary">person</mat-icon>
 
           <mat-error *ngIf="firstName.invalid">Indtast venligst dit fornavn</mat-error>
@@ -41,7 +41,7 @@
 
         <mat-form-field>
 
-          <input matInput type="text" [value]="user.lastName" formControlName="lastName"name="lastName" ngModel #lastName placeholder="Efternavn">
+          <input matInput type="text"  formControlName="lastName"name="lastName" ngModel #lastName placeholder="Efternavn">
           <mat-icon matSuffix color="primary">person</mat-icon>
 
           <mat-error *ngIf="lastName.invalid">Indtast venligst dit efternavn</mat-error>
