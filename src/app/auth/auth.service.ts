@@ -14,6 +14,9 @@ export class AuthService {
   private userId: string;
   private authStatusListener = new Subject<boolean>();
 
+  redirectToUrl: string = '/galleri/private'
+
+
   constructor(private http: HttpClient, private router: Router){}
 
   getToken(){
