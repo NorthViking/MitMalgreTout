@@ -13,12 +13,12 @@
           <mat-error *ngIf="emailInput.invalid">Indtast en gyldigt email</mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input type="password" matInput name="password" ngModel placeholder="Kodeord" #passwordInput="ngModel"
+          <input type="password" minlength="6" matInput name="password" ngModel placeholder="Kodeord" #passwordInput="ngModel"
             required>
           <mat-icon matSuffix>vpn_key</mat-icon>
           <mat-error *ngIf="passwordInput.invalid">Indtast et gyldigt kodeord</mat-error>
         </mat-form-field>
-        <button type="submit" mat-raised-button color="primary" *ngIf="!isLoading">Log ind</button>
+        <button type="submit" mat-raised-button color="primary" [disabled]="!loginForm.valid" *ngIf="!isLoading">Log ind</button>
       </form>
       <mat-card-content class="authThings">
         <mat-card-content>

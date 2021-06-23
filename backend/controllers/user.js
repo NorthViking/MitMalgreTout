@@ -40,7 +40,7 @@ exports.userLogin =  (req, res, next) => {
   .then(user => {
     if (!user) {
        return res.status(401).json({
-        message: "Auth fejlede!"
+        message: "Forkert bruger oplysninger!"
       });
     }
     fetchedUser = user;
@@ -49,7 +49,7 @@ exports.userLogin =  (req, res, next) => {
   .then(result => {
     if (!result) {
       return res.status(401).json({
-        message: "Auth fejlede!"
+        message: "Forkert bruger oplysninger!"
       });
     }
     const token = jwt.sign(

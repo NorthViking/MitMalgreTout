@@ -16,7 +16,7 @@ import { ProfileInfoComponent } from './profile/profile-info/profile-info.compon
 
 
 
-const routes: Routes = [
+export const routes: Routes = [
   {path:'', component: WelcomeComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'login', component: LoginComponent},

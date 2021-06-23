@@ -22,22 +22,22 @@
           <mat-error *ngIf="emailInput.invalid">Indtast et gyldigt Email</mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input type="password" matInput name="password" ngModel  placeholder="Kodeord" #passwordInput="ngModel" required>
+          <input type="password" minlength="6" matInput name="password" ngModel  placeholder="Kodeord" #passwordInput="ngModel" required>
           <mat-icon matSuffix>vpn_key</mat-icon>
           <mat-error *ngIf="passwordInput.invalid">Indtast et gyldigt kodeord</mat-error>
         </mat-form-field>
         <mat-card-content>
           <mat-card-content>
-            <mat-checkbox  ngmodel name="agree"  required color="primary">Jeg bekræfter at jeg er 16 år eller over</mat-checkbox>
+            <mat-checkbox  ngmodel name="agree1"  required color="primary">Jeg bekræfter at jeg er 16 år eller over</mat-checkbox>
           </mat-card-content>
           <mat-card-content>
-            <mat-checkbox  ngModel name="agree" required color="primary">Jeg bekræfter at jeg har læst og accepteret Malgrè Tout's <a href="">brugervilkår</a></mat-checkbox>
+            <mat-checkbox  ngModel name="agree2" required color="primary">Jeg bekræfter at jeg har læst og accepteret Malgrè Tout's <a href="">brugervilkår</a></mat-checkbox>
           </mat-card-content>
           <mat-card-content>
-            <mat-checkbox ngModel name="agree" color="primary">Tilmeld dig Malgrè Tout's nyhedsbrev</mat-checkbox>
+            <mat-checkbox  name="agree3" color="primary">Tilmeld dig Malgrè Tout's nyhedsbrev</mat-checkbox>
           </mat-card-content>
         </mat-card-content>
-        <button type="submit" mat-raised-button color="primary" *ngIf="!isLoading">Opret bruger</button>
+        <button type="submit" [disabled]="signupForm.form.invalid" mat-raised-button color="primary" *ngIf="!isLoading">Opret bruger</button>
       </form>
     </mat-card-content>
   </mat-card>
