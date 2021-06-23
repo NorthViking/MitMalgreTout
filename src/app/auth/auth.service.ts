@@ -39,7 +39,7 @@ export class AuthService {
     const authData: AuthData = {firstName: firstName, lastName: lastName, email: email, password: password};
     this.http.post('http://localhost:3000/api/user/signup', authData)
     .subscribe(() => {
-      this.router.navigate["/login"];
+      this.router.navigate(["/login"]);
     }, error => {
       this.authStatusListener.next(false);
     });
