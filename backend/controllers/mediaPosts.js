@@ -21,7 +21,7 @@ exports.createMedia = (req, res, next) => {
   })
   .catch(error => {
     res.status(500).json({
-      message:"Vi fejled i at gemme dit medie"
+      message:"Vi fejlede i at gemme dit medie"
   });
   });
 }

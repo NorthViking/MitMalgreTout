@@ -5,8 +5,7 @@
       <mat-toolbar fxLayoutAlign="center center" fxLayoutGap="50px">
         <mat-card-title fxLayoutAlign="center center">Mit Malgré Tout</mat-card-title>
         <div fxFlex fsLayout fxLayoutAlign="flex-end">
-          <button mat-icon-button color="primary" aria-lable="heart" type="button"
-          (click)="filePicker.click()">
+          <button mat-icon-button color="primary" aria-lable="heart" type="button">
           <mat-icon>favorite</mat-icon>
         </button>
         <button mat-icon-button class="share" color="primary" aria-label="share">
@@ -18,83 +17,92 @@
       </mat-toolbar>
       <mat-card-subtitle>Min profil</mat-card-subtitle>
     </mat-card>
-    <form [formGroup]="form" (submit)="onSavePicture()" *ngIf="!isLoading">
+    <form [formGroup]="form" (submit)="onAddProfile()" *ngIf="!isLoading">
       <mat-form-field>
         <input
         matInput
         type="text"
-        formControlName="ProfilePicture"
+        formControlName="profilePicture"
         placeholder="Profilbillede">
-        <mat-error *ngIf="form.get('title').invalid"></mat-error>
+        <mat-error *ngIf="form.get('profilePicture').invalid"></mat-error>
+      </mat-form-field>
+
+      <div fxLayout="column" fxLayoutAlign="left left" fxLayoutGap="15px">
+        <button mat-raised-button type="button" color="primary" (click)="filePicker.click()">Vælg profilbillede</button>
+        <input type="file" #filePicker (change)="onImagePicked($event)">
+      </div>
+      <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && form.get('profilePicture').valid">
+        <img [src]="imagePreview" [alt]="form.value.profilePicture">
+      </div>
+      <mat-form-field>
+        <input matInput
+        name="firstName"
+        #firstName
+        formControlName="firstName"
+        placeholder="Fornavn">
+        <mat-icon matSuffix color="primary">person</mat-icon>
+        <mat-error *ngIf="form.get('firstName').invalid">Indtast venligst dit fornavn</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput
+        type="text"
+        name="lastName"
+        #lastName
+        formControlName="lastName"
+        placeholder="Efternavn">
+        <mat-icon matSuffix color="primary">person</mat-icon>
+      <mat-error *ngIf="form.get('lastName').invalid">Indtast venligst dit efternavn</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput color="primary"
+        type="date"
+        name="dateOfBirth"
+        #datePicker
+        formControlName="dateOfBirth"
+        placeholder="Fødselsdag">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput
+        type="text"
+        name="email"
+        #email
+        formControlName="email"
+        placeholder="Email">
+        <mat-icon matSuffix color="primary">email</mat-icon>
+        <mat-error *ngIf="form.get('email').invalid">Indtast venligst din email</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput
+        type="text"
+        name="phoneNumber"
+        formControlName="phoneNumber"
+        placeholder="Telefonnummer">
+        <mat-icon matSuffix color="primary">phone</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input type="text"
+        matInput
+        rows="4"
+        name="interests"
+        formControlName="interests"
+        placeholder="Interesser">
+        <mat-icon matSuffix color="primary">note_add</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput
+        name="textFile"
+        #firstName
+        formControlName="textFile"
+        placeholder="Mine Tekstfiler">
+        <mat-icon matSuffix color="primary">person</mat-icon>
       </mat-form-field>
     </form>
-
-        <div fxLayout="column" fxLayoutAlign="left left" fxLayoutGap="15px">
-          <button mat-raised-button type="button" color="primary" (click)="filePicker.click()">Vælg profilbillede</button>
-          <input type="file" style="visibility: hidden" #filePicker>
-        </div>
-
-        <mat-form-field>
-          <input matInput
-          name="firstName"
-          #firstName
-          placeholder="Fornavn">
-          <mat-icon matSuffix color="primary">person</mat-icon>
-          <mat-error *ngIf="firstName.invalid">Indtast venligst dit fornavn</mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-          <input matInput
-          type="text"
-          name="lastName"
-          #lastName
-          placeholder="Efternavn">
-          <mat-icon matSuffix color="primary">person</mat-icon>
-        <mat-error *ngIf="lastName.invalid">Indtast venligst dit efternavn</mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-          <input matInput color="primary"
-          type="date"
-          name="dateOfBirth"
-          #datePicker
-          placeholder="Fødselsdag">
-        </mat-form-field>
-
-        <mat-form-field>
-          <input matInput
-          type="text"
-          name="email"
-          #email
-          placeholder="Email">
-          <mat-icon matSuffix color="primary">email</mat-icon>
-          <mat-error *ngIf="email.invalid">Indtast venligst din email</mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-          <input matInput
-          type="text"
-          name="phoneNumber"
-          placeholder="Telefonnummer">
-          <mat-icon matSuffix color="primary">phone</mat-icon>
-        </mat-form-field>
-
-        <mat-form-field>
-          <input type="text"
-          matInput
-          rows="4"
-          name="interests"
-          placeholder="Interesser">
-          <mat-icon matSuffix color="primary">note_add</mat-icon>
-        </mat-form-field>
-
-        <mat-form-field>
-          <input matInput
-          name="textFile"
-          #firstName
-          placeholder="Mine Tekstfiler">
-          <mat-icon matSuffix color="primary">person</mat-icon>
-        </mat-form-field>
 
       <div>
         <button mat-icon-button mat-raised-button color="primary" aria-label="arrow_back"><mat-icon>arrow_back</mat-icon></button>
