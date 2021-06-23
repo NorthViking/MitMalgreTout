@@ -5,7 +5,6 @@ import { HeaderComponent } from './navigation/header/header.component'
 import { WelcomeComponent } from './welcome/welcome.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
-import { UpdateProfileComponent } from './profile/update-profile.component';
 import { GalleriComponent } from './galleri/galleri.component';
 import { PublicGalleriComponent } from './galleri/public-galleri/public-galleri.component';
 import { PersonalGalleriComponent } from './galleri/personal-galleri/personal-galleri.component';
@@ -40,7 +39,6 @@ import { ErrorInterceptor } from './error-interceptor';
     WelcomeComponent,
     SignupComponent,
     LoginComponent,
-    UpdateProfileComponent,
     GalleriComponent,
     PublicGalleriComponent,
     PersonalGalleriComponent,
