@@ -15,7 +15,9 @@ import { Interest } from './profile-info.model';
 import { MyEvent } from './profile-info.model';
 import { MyMedia } from './profile-info.model';
 import { TextFile } from './profile-info.model';
-import { NgForm } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { mimeType } from 'src/app/galleri/personal-galleri/mime-type.validator';
 
 @Component({
   selector: 'app-profile-info',
@@ -34,7 +36,9 @@ export class ProfileInfoComponent implements OnInit, OnDestroy {
     //{title: 'second sound file', content: 'second sound file'},
     //{title: 'third sound file', content: 'third sound file'},
   //];
-
+  enteredTitle = "";
+  enteredContent = "";
+  media: Media [] = [];
   medias: Media[] = [];
   pictureFiles: PictureFile [] = [];
   videoFiles: VideoFile [] = [];
@@ -49,6 +53,23 @@ export class ProfileInfoComponent implements OnInit, OnDestroy {
   myEvents: MyEvent [] = [];
   myMedias: MyMedia [] = []
   textFiles: TextFile [] = [];
+  isLoading = false;
+  form: FormGroup;
+  private mode = "upload"
+  private mediaId: string;
+  private pictureFileId: string;
+  private videoFileId: string;
+  private soundFileId: string;
+  private profilePictureId: string;
+  private firstNameId: string;
+  private lastNameId: string;
+  private dateOfBirthId: string;
+  private emailId: string;
+  private phoneNumberId: string;
+  private interestId: string;
+  private myEventId: string;
+  private myMediaId: string;
+  private textFileId: string;
 
   private mediasSub: Subscription;
   private pictureFilesSub: Subscription;
@@ -65,9 +86,209 @@ export class ProfileInfoComponent implements OnInit, OnDestroy {
   private myMediasSub: Subscription;
   private textFilesSub: Subscription
 
-  constructor(public profileInfoService: ProfileInfoService) {}
+  constructor(public profileInfoService: ProfileInfoService, public route: ActivatedRoute) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.form = new FormGroup({
+      'title': new FormControl(null, {validators: [Validators.required, Validators.minLength(1)]})
+    }),
+    this.form = new FormGroup({
+      'content': new FormControl(null, {validators: [Validators.required], asyncValidators: [mimeType]})
+      });
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.has("mediaId")) {
+        this.mode = "edit";
+        this.mediaId = paramMap.get("mediaId");
+        this.isLoading = true;
+        this.profileInfoService.getMedia(this.mediad).subscribe(mediaData => {
+          this.isLoading = false;
+          this.media = {id: mediaData._id, title:mediaData.title, content: mediaData.content}
+        });
+
+        this.form.setValue({'title': this.media.title, 'content': this.media.content});
+       } else {
+         this.mode = "create";
+         this.mediaId = null;
+       }
+       if (paramMap.has("pictureFileId")) {
+        this.mode = "edit";
+        this.pictureFileId = paramMap.get("pictureFileId");
+        this.isLoading = true;
+        this.profileInfoService.getPictureFile(this.pictureFileId).subscribe(pictureFileData => {
+          this.isLoading = false;
+          this.pictureFile = {id pictureFileData._id, title:pictureFileData, content: pictureFileData.content}
+        });
+       } else {
+         this.mode = "create";
+         this.videoFileId = null;
+       }
+       if (paramMap.has("videoFileId")) {
+        this.mode = "edit";
+        this.videoFileId = paramMap.get("videoFileId");
+        this.isLoading = true;
+        this.profileInfoService.getVideoFile(this.videoFileId).subscribe(videoFileData => {
+          this.isLoading = false;
+          this.videoFile = {id videoFileData._id, title:videoFileData, content: videoFileData.content}
+        });
+       } else {
+         this.mode = "create";
+         this.videoFileId = null;
+       }
+
+      if (paramMap.has("soundFileId")) {
+        this.mode = "edit";
+        this.soundFileId = paramMap.get("soundFileId");
+        this.isLoading = true;
+        this.profileInfoService.getSoundFile(this.soundFileId).subscribe(soundFileData => {
+          this.isLoading = false;
+          this.soundFile = {id soundFileData._id, title:soundFileData, content: soundFileData.content}
+        });
+       } else {
+         this.mode = "create";
+         this.soundFileId = null;
+       }
+
+       if (paramMap.has("profilePictureId")) {
+        this.mode = "edit";
+        this.profilePictureId = paramMap.get("profilePictureId");
+        this.isLoading = true;
+        this.profileInfoService.getProfilePicture(this.profilePictureId).subscribe(profilePictureData => {
+          this.isLoading = false;
+          this.profilePicture = {id profilePictureData._id, title:profilePictureData, content: profilePictureData.content}
+        });
+       } else {
+         this.mode = "create";
+         this.profilePictureId = null;
+       }
+       if (paramMap.has("firstNameId")) {
+        this.mode = "edit";
+        this.firstNameId = paramMap.get("firstNameId");
+        this.isLoading = true;
+        this.profileInfoService.getFirstName(this.firstNameId).subscribe(firstNameData => {
+          this.isLoading = false;
+          this.firstName = {id firstNameData._id, title:firstNameData, content: firstNameData.content}
+        });
+       } else {
+         this.mode = "create";
+         this.firstNameId = null;
+       }
+       if (paramMap.has("lastNameId")) {
+        this.mode = "edit";
+        this.lastNameId = paramMap.get("lastNameId");
+        this.isLoading = true;
+        this.profileInfoService.getLastName(this.lastNameId).subscribe(lastNameData => {
+          this.isLoading = false;
+          this.lastName = {id lastNameData._id, title:lastNameData, content: lastNameData.content}
+        });
+       } else {
+         this.mode = "create";
+         this.lastNameId = null;
+       }
+       if (paramMap.has("dateOfBirthId")) {
+        this.mode = "edit";
+        this.dateOfBirthId = paramMap.get("dateOfBirthId");
+        this.isLoading = true;
+        this.profileInfoService.getDateOfBirth(this.dateOfBirthId).subscribe(dateOfBirthData => {
+          this.isLoading = false;
+          this.dateOfBirth = {id dateOfBirthData._id, title:dateOfBirthData, content: dateOfBirthData.content}
+        });
+       } else {
+         this.mode = "create";
+         this.dateOfBirthId = null;
+       }
+       if (paramMap.has("emailId")) {
+        this.mode = "edit";
+        this.emailId = paramMap.get("emailId");
+        this.isLoading = true;
+        this.profileInfoService.getEmail(this.emailId).subscribe(emailData => {
+          this.isLoading = false;
+          this.email = {id emailData._id, title:emailData, content: emailData.content}
+        });
+       } else {
+         this.mode = "create";
+         this.emailId = null;
+       }
+
+       if (paramMap.has("phoneNumberId")) {
+        this.mode = "edit";
+        this.phoneNumberId = paramMap.get("phoneNumberId");
+        this.isLoading = true;
+        this.profileInfoService.getPhoneNumber(this.phoneNumberId).subscribe(phoneNumberData => {
+          this.isLoading = false;
+          this.phoneNumber = {id phoneNumberData._id, title:phoneNumberData, content: phoneNumberData.content}
+        });
+       } else {
+         this.mode = "create";
+         this.phoneNumberId = null;
+       }
+
+       if (paramMap.has("interestId")) {
+        this.mode = "edit";
+        this.interestId = paramMap.get("interestId");
+        this.isLoading = true;
+        this.profileInfoService.getInterest(this.interestId).subscribe(interestData => {
+          this.isLoading = false;
+          this.interest = {id interestData._id, title:interestData, content: interestData.content}
+        });
+       } else {
+         this.mode = "create";
+         this.interestId = null;
+       }
+
+       if (paramMap.has("myEventId")) {
+        this.mode = "edit";
+        this.myEventId = paramMap.get("myEventId");
+        this.isLoading = true;
+        this.profileInfoService.getMyEvent(this.myEventId).subscribe(myEventData => {
+          this.isLoading = false;
+          this.myEvent = {id myEventData._id, title:myEventData, content: myEventData.content}
+        });
+       } else {
+         this.mode = "create";
+         this.myEventId = null;
+       }
+
+       if (paramMap.has("myMediaId")) {
+        this.mode = "edit";
+        this.myMediaId = paramMap.get("myMediaId");
+        this.isLoading = true;
+        this.profileInfoService.getMedia(this.myMediaId).subscribe(myMediaData => {
+          this.isLoading = false;
+          this.myMediaId = {id myMediaData._id, title:myMediaData, content: myMediaData.content}
+        });
+       } else {
+         this.mode = "create";
+         this.myMediaId = null;
+       }
+
+       if (paramMap.has("textFileId")) {
+        this.mode = "edit";
+        this.mediaId = paramMap.get("textFileId");
+        this.isLoading = true;
+        this.profileInfoService.getTextFile(this.textFileId).subscribe(textFileData => {
+          this.isLoading = false;
+          this.textFile = {id textFileData._id, title:textFileData, content: textFileData.content}
+        });
+       } else {
+         this.mode = "create";
+         this.textFileId = null;
+       }
+    })
+
+    onSaveMedia() {
+      if(this.form.invalid)
+      return;
+    }
+
+    this.isLoading = true;
+    if (this.mode === "create") {
+      this.profileInfoService.addMedia(this.form.value.title, this.form.value.content);
+    } else{
+      this.profileInfoService.updateMedia(this.mediaId,
+        form.value.title,
+        form.value.content);
+    }
+    this.form.resetForm();
 
     this.medias = this.profileInfoService.getMedias();
     this.pictureFiles = this.profileInfoService.getPictureFiles();

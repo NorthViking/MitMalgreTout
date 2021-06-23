@@ -19,16 +19,17 @@
     </mat-card>
 
         <div fxLayout="column" fxLayoutAlign="left left" fxLayoutGap="15px">
-          <input type="file" #filePicker>
           <button mat-raised-button type="button" color="primary" (click)="filePicker.click()">Vælg profilbillede</button>
+          <input type="file" #filePicker (change)="onImagePicked($event)">
         </div>
-
+        <form [formGroup] (submit)="onSaveMedia()" ngIf="!isLoading"></form>
         <mat-form-field>
           <input matInput
           name="profilePicture"
-          ngModel
+          formControlName=" media title"
           #firstName
           placeholder="Profilbillede">
+          <mat-error *ngIf="form.get('title').invalid">Indtast venligst en medietitel</mat-error>
           <mat-icon matSuffix color="primary">person</mat-icon>
         </mat-form-field>
 

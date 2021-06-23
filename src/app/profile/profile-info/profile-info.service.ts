@@ -55,6 +55,10 @@ export class ProfileInfoService{
     return this.mediasUpdated.asObservable();
   }
 
+  getMedia(){
+    return [...this.media];
+  }
+
   getPictureFiles(){
     return [...this.pictureFiles];
   }
