@@ -35,20 +35,30 @@
         </div>
 
         <mat-form-field>
+<<<<<<< HEAD
           <input matInput
           name="firstName"
           #firstName
           placeholder="Fornavn">
+=======
+
+          <input matInput  name="firstName" formControlName="firstName" ngModel #firstName placeholder="Fornavn">
+>>>>>>> addbfe02717ec60e61ee77e0ee12248efff216b7
           <mat-icon matSuffix color="primary">person</mat-icon>
           <mat-error *ngIf="firstName.invalid">Indtast venligst dit fornavn</mat-error>
         </mat-form-field>
 
         <mat-form-field>
+<<<<<<< HEAD
           <input matInput
           type="text"
           name="lastName"
           #lastName
           placeholder="Efternavn">
+=======
+
+          <input matInput type="text"  formControlName="lastName"name="lastName" ngModel #lastName placeholder="Efternavn">
+>>>>>>> addbfe02717ec60e61ee77e0ee12248efff216b7
           <mat-icon matSuffix color="primary">person</mat-icon>
         <mat-error *ngIf="lastName.invalid">Indtast venligst dit efternavn</mat-error>
         </mat-form-field>

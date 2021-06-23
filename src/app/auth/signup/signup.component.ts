@@ -31,10 +31,17 @@ export class SignupComponent implements OnInit, OnDestroy {
       lastName: new FormControl(null, {
         validators: [Validators.required] }),
       email: new FormControl(null, {
-        validators: [Validators.required]
+        validators: [Validators.required, Validators.email]
       }),
       password: new FormControl(null , {
-        validators: [Validators.required, Validators.minLength(8)]})
+        validators: [Validators.required, Validators.minLength(6)]
+      }),
+      agree1: new FormControl(null, {
+        validators:[Validators.required]
+      }),
+      agree2: new FormControl(null, {
+        validators:[Validators.required]
+      })
     });
   }
 
