@@ -1,42 +1,21 @@
-mat-form-field,
-textarea{
-  width: 100%;
+:host{
+  display: block;
+  margin-top: 1rem;
 }
 
-mat-spinner{
-  margin: auto;
+.info-text {
+  text-align: center;
 }
 
-input[type="file"]{
+input [type="file"]{
   visibility: hidden;
-}
-input[type="file"]{
-  visibility:hidden;
-}
-
-a{
-  color: #E5998e;
-}
-
-.btn_event{
-  margin-left: 100px;
-}
-.btn_event{
-  margin-right: 100px
-}
-
-a :hover{
-  text-decoration: underline;
-}
-
-.spacer{
-  flex: 1 1 auto;
 }
 
 .image-preview {
   height: 5rem;
-  margin: 1rem 0;
+  margin: 1rem;
 }
-.image-preview img {
+
+.image-preview img{
   height: 100%;
 }

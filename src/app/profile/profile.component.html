@@ -1,105 +1,117 @@
 <section fxLayoutAlign="center center">
   <mat-card fxFlex="60%" fxFlex.sm="70%">
     <mat-card>
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
       <mat-toolbar fxLayoutAlign="center center" fxLayoutGap="50px">
         <mat-card-title fxLayoutAlign="center center">Mit Malgré Tout</mat-card-title>
         <div fxFlex fsLayout fxLayoutAlign="flex-end">
-          <button mat-icon-button color="primary" aria-lable="heart" type="button">
-            <mat-icon>favorite</mat-icon>
-          </button>
-          <button mat-icon-button class="share" color="primary" aria-label="share">
-            <mat-icon>share</mat-icon>
-          </button>
-          <button mat-icon-button class="contact_mail" color="primary" aria-label="contact_mail">
-            <mat-icon>contact_mail</mat-icon>
-          </button>
+          <button mat-icon-button color="primary" aria-lable="heart" type="button"
+          (click)="filePicker.click()">
+          <mat-icon>favorite</mat-icon>
+        </button>
+        <button mat-icon-button class="share" color="primary" aria-label="share">
+          <mat-icon>share</mat-icon>
+        </button>
+        <button mat-icon-button class="contact_mail" color="primary" aria-label="contact_mail">
+          <mat-icon>contact_mail</mat-icon></button>
         </div>
       </mat-toolbar>
       <mat-card-subtitle>Min profil</mat-card-subtitle>
     </mat-card>
+    <form [formGroup]="form" (submit)="onSavePicture()" *ngIf="!isLoading">
+      <mat-form-field>
+        <input
+        matInput
+        type="text"
+        formControlName="ProfilePicture"
+        placeholder="Profilbillede">
+        <mat-error *ngIf="form.get('title').invalid"></mat-error>
+      </mat-form-field>
+    </form>
 
-    <mat-card-content fxLayout="column" fxLayoutAlign="left left" fxLayoutGap="20px">
-      <mat-spinner *ngIf="isLoading"></mat-spinner>
-      <form method="POST" [formGroup]="form" (ngSubmit)="onSavePost()" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px">
-        <div class="image-preview"
-          *ngIf="profileImagePreview !== '' && profileImagePreview && form.get('profilePicture').valid">
-          <img fxFlex="65%" [src]="profileImagePreview">
-        </div>
         <div fxLayout="column" fxLayoutAlign="left left" fxLayoutGap="15px">
-          <input type="file" #filePicker (change)="onImagePicked($event)">
-          <button mat-raised-button type="button" color="primary" (click)="filePicker.click()">Vælg
-            profilbillede</button>
+          <button mat-raised-button type="button" color="primary" (click)="filePicker.click()">Vælg profilbillede</button>
+          <input type="file" style="visibility: hidden" #filePicker>
         </div>
 
         <mat-form-field>
-
-          <input matInput [value]="user.firstName" name="firstName" formControlName="firstName" ngModel #firstName placeholder="Fornavn">
+          <input matInput
+          name="firstName"
+          #firstName
+          placeholder="Fornavn">
           <mat-icon matSuffix color="primary">person</mat-icon>
-
           <mat-error *ngIf="firstName.invalid">Indtast venligst dit fornavn</mat-error>
         </mat-form-field>
 
         <mat-form-field>
-
-          <input matInput type="text" [value]="user.lastName" formControlName="lastName"name="lastName" ngModel #lastName placeholder="Efternavn">
+          <input matInput
+          type="text"
+          name="lastName"
+          #lastName
+          placeholder="Efternavn">
           <mat-icon matSuffix color="primary">person</mat-icon>
-
-          <mat-error *ngIf="lastName.invalid">Indtast venligst dit efternavn</mat-error>
+        <mat-error *ngIf="lastName.invalid">Indtast venligst dit efternavn</mat-error>
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput formControlName="dateOfBirth" color="primary" type="date" name="dateOfBirth" #datePicker placeholder="Fødselsdag">
+          <input matInput color="primary"
+          type="date"
+          name="dateOfBirth"
+          #datePicker
+          placeholder="Fødselsdag">
         </mat-form-field>
 
         <mat-form-field>
-
-          <input matInput formControlName="email" type="text" name="email" ngModel #email placeholder="Email">
+          <input matInput
+          type="text"
+          name="email"
+          #email
+          placeholder="Email">
           <mat-icon matSuffix color="primary">email</mat-icon>
           <mat-error *ngIf="email.invalid">Indtast venligst din email</mat-error>
         </mat-form-field>
 
         <mat-form-field>
-
-          <input matInput type="text" formControlName="phoneNumber" name="phoneNumber" placeholder="Telefonnummer">
+          <input matInput
+          type="text"
+          name="phoneNumber"
+          placeholder="Telefonnummer">
           <mat-icon matSuffix color="primary">phone</mat-icon>
         </mat-form-field>
 
         <mat-form-field>
-
-          <input type="text" matInput formControlName="interests" name="interests" ngModel  placeholder="Interesser">
+          <input type="text"
+          matInput
+          rows="4"
+          name="interests"
+          placeholder="Interesser">
           <mat-icon matSuffix color="primary">note_add</mat-icon>
         </mat-form-field>
 
-        <button mat-raised-button type="submit" color="primary" >Gem Information</button>
+        <mat-form-field>
+          <input matInput
+          name="textFile"
+          #firstName
+          placeholder="Mine Tekstfiler">
+          <mat-icon matSuffix color="primary">person</mat-icon>
+        </mat-form-field>
 
-      </form>
       <div>
-        <button mat-icon-button mat-raised-button color="primary" aria-label="arrow_back">
-          <mat-icon>arrow_back</mat-icon>
-        </button>
-        &nbsp;&nbsp;&nbsp;<button mat-icon-button mat-raised-button color="primary" aria-label="event">
-          <mat-icon>event</mat-icon>
-        </button>
-        &nbsp;&nbsp;&nbsp;<button mat-icon-button mat-raised-button color="primary" aria-label="view_module">
-          <mat-icon>view_module</mat-icon>
-        </button>
-        &nbsp;&nbsp;&nbsp;<button mat-icon-button mat-raised-button color="primary" aria-label="edit">
-          <mat-icon>edit</mat-icon>
-        </button>
-        &nbsp;&nbsp;&nbsp;<button mat-icon-button mat-raised-button color="primary" aria-label="delete">
-          <mat-icon>delete</mat-icon>
-        </button>
+        <button mat-icon-button mat-raised-button color="primary" aria-label="arrow_back"><mat-icon>arrow_back</mat-icon></button>
+        &nbsp;&nbsp;&nbsp;<button mat-icon-button mat-raised-button color="primary" aria-label="event"><mat-icon>event</mat-icon></button>
+        &nbsp;&nbsp;&nbsp;<button mat-icon-button mat-raised-button color="primary" aria-label="view_module"><mat-icon>view_module</mat-icon></button>
+        &nbsp;&nbsp;&nbsp;<button mat-icon-button mat-raised-button color="primary" aria-label="edit"><mat-icon>edit</mat-icon></button>
+        &nbsp;&nbsp;&nbsp;<button mat-icon-button mat-raised-button color="primary" aria-label="delete"><mat-icon>delete</mat-icon></button>
       </div>
 
-    </mat-card-content>
     <mat-card-content>
       <p>Malgré Touts hjemmeside<a href="https://www.malgretout.dk/"> Klik her</a></p>
     </mat-card-content>
     <mat-card-content>
       <p>Send mail til Malgré Tout<a href="mailto: th@malgretout.dk = Feedback&body = Message"> Send email</a></p>
-      <p>Kom med idéer til Malgré Tout<a
-          href="mailto: tn@malgretout.dk, fwd@malgretout.dk, bs@malgretout.dk, lh@malgretout.dk = Feedback&body = Message">
-          Send os en mail</a></p>
+      <p>Kom med idéer til Malgré Tout<a href="mailto: tn@malgretout.dk, fwd@malgretout.dk, bs@malgretout.dk, lh@malgretout.dk = Feedback&body = Message"> Send os en mail</a></p>
+
     </mat-card-content>
-  </mat-card>
+</mat-card>
 </section>
+

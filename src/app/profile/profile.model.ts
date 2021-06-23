@@ -1,11 +1,15 @@
-export interface User{
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  profilePicturePath: string;
-  dateOfBirth: any;
-  phoneNumber: string;
-  interests: string;
-
+export interface Profile {
+  id: String;
+  profilePicturePath: String;
+  firstName: String;
+  lastName: String;
+  dateOfBirth: Date;
+  email: String;
+  phoneNumber: String;
+  interests: String;
+  myEvent: String;
+  textFile: String;
+  myImageFile: File;
+  mySoundFile: File;
+  myVideoFile: File;
 }
