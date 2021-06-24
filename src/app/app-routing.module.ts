@@ -6,7 +6,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { GalleriComponent } from './galleri/galleri.component';
 import { PublicGalleriComponent } from './galleri/public-galleri/public-galleri.component';
 import  {PersonalGalleriComponent } from './galleri/personal-galleri/personal-galleri.component';
-import { AuthGuard } from './auth/auth.guard';
+import { AuthGuard } from './auth/authGuard/auth.guard';
 //import { ProfileMediaComponent } from './profile/profile-media/profile-media.component';
 //import { LinksComponent } from './links/links.component';
 import { ProfileComponent } from './profile/profile.component';

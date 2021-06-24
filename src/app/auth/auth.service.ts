@@ -14,6 +14,9 @@ export class AuthService {
   private userId: string;
   private authStatusListener = new Subject<boolean>();
 
+  redirectToUrl: string = '/galleri/private'
+
+
   constructor(private http: HttpClient, private router: Router){}
 
   getToken(){
@@ -36,7 +39,7 @@ export class AuthService {
     const authData: AuthData = {firstName: firstName, lastName: lastName, email: email, password: password};
     this.http.post('http://localhost:3000/api/user/signup', authData)
     .subscribe(() => {
-      this.router.navigate["/login"];
+      this.router.navigate(["/login"]);
     }, error => {
       this.authStatusListener.next(false);
     });

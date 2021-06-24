@@ -9,12 +9,12 @@ import { GalleriService } from '../galleri.service';
 import { BehaviorSubject, of } from "rxjs";
 
 
-const medias = new BehaviorSubject({
+const mediass$ = new BehaviorSubject({
   images: [{id: '601d1243d123123s', title: 'Mystang', image: 'path', description: 'lolo adaw'}],
   totalCount: 1,
 })
 
-fdescribe('PersonalGalleriComponent', () => {
+describe('PersonalGalleriComponent', () => {
   let component: PersonalGalleriComponent;
   let fixture: ComponentFixture<PersonalGalleriComponent>;
 
@@ -27,7 +27,11 @@ beforeEach(async () => {
          RouterTestingModule,
 
         ],
-       declarations: [ PersonalGalleriComponent ]
+       declarations: [ PersonalGalleriComponent ],
+       providers:[{provide: GalleriService, getMedias: ()=> mediass$
+      }
+    ]
+
      })
     .compileComponents();
    });
@@ -62,21 +66,26 @@ beforeEach(async () => {
     expect(component.form.valid).toBeFalsy();
   })
 
-  it('form should be valid', () => {
-    component.form.controls['title'].setValue('horse');
-    component.form.controls['image'].setValue({target:{Files: Image}});
-    component.form.controls['description'].setValue('Der her er en hest');
-    expect(component.form.valid).toBeTruthy();
-  })
-
   it('should call deleteMedia method', ()=> {
     const debugElement = fixture.debugElement;
     let galleriService = debugElement.injector.get(GalleriService);
-    let deleteSpy = spyOn(galleriService, 'deleteMedia').and.callThrough();
-    fixture.componentInstance.galleriServise.deleteMedia = deleteSpy;
-
-
+    spyOn(galleriService, 'deleteMedia').and.callThrough();
+    component.onDelete(mediass$.value.images[0].id);
+    expect(galleriService.deleteMedia).toHaveBeenCalled();
   });
+
+  // it('should call updateMedia method', () => {
+  //   let galleriElement: DebugElement;
+  //   const debugElement = fixture.debugElement;
+  //   let galleriService = debugElement.injector.get(GalleriService);
+  //   let galleriSpy = spyOn(galleriService, 'updateMedia').and.callThrough();
+  //   galleriElement = fixture.debugElement.query(By.css('form'));
+  //   component.form.controls['title'].setValue('horsess');
+  //   component.form.controls['image'].setValue({target: {files: Image}});
+  //   component.form.controls['description'].setValue('Der her er en hests');
+  //   galleriElement.triggerEventHandler('submit',null);
+  //   expect(galleriSpy).toHaveBeenCalledTimes(1);;
+  // })
 
 
 });

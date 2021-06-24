@@ -6,7 +6,7 @@ import {
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
-import { Router, ActivatedRoute, RouterLinkWithHref, convertToParamMap } from '@angular/router';
+import { Router } from '@angular/router';
 import { DebugElement } from '@angular/core';
 
 //importing routes
@@ -21,12 +21,16 @@ import { AuthService } from './auth/auth.service';
 import { Location } from '@angular/common';
 
 
+
+
+
 describe('AppComponent routing Example', () => {
   let router: Router;
   let location: Location;
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
   let debugElement: DebugElement;
+
 
 
   beforeEach((() => {
@@ -40,10 +44,13 @@ describe('AppComponent routing Example', () => {
         SignupComponent,
         LoginComponent,
       ],
-      providers: [GalleriService, AuthService,
+      providers: [
+        GalleriService,
+        AuthService,
         ],
     }).compileComponents();
   }));
+
 
   beforeEach(() => {
     router = TestBed.inject(Router);
