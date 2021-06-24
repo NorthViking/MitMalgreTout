@@ -9,12 +9,12 @@ const userRoutes = require('./routes/user');
 
 
 const app = express();
-
+//SG1AEMcgfuAiBlv9
 //jLO72lMHH2XWKWr0
 //PYBEEZWl05dEc89E
 mongoose
   .connect(
-    'mongodb+srv://Caspar:jLO72lMHH2XWKWr0@mmtcluster.1wl49.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+    'mongodb+srv://Anja:SG1AEMcgfuAiBlv9@mmtcluster.1wl49.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
     {useNewUrlParser: true, useUnifiedTopology: true}
     )
     .then(()=>{
